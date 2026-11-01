@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="celestialGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E879F9" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#6D4AFF" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#070817" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="#070817" />
+  <circle cx="400" cy="300" r="300" fill="url(#celestialGlow)" />
+  <!-- Sparkles -->
+  <polygon points="400,180 410,220 450,230 410,240 400,280 390,240 350,230 390,220" fill="#FACC15" />
+  <polygon points="260,320 266,340 286,346 266,352 260,372 254,352 234,346 254,340" fill="#38BDF8" />
+  <polygon points="530,340 536,360 556,366 536,372 530,392 524,372 504,366 524,360" fill="#F472B6" />
+  <text x="50%" y="420" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="32" font-weight="bold" letter-spacing="3">BRIGHT SMILE</text>
+  <text x="50%" y="460" text-anchor="middle" fill="#E2E8F0" opacity="0.85" font-family="sans-serif" font-size="18">Nụ cười rạng rỡ của cậu luôn làm bừng sáng mọi không gian</text>
+</svg>

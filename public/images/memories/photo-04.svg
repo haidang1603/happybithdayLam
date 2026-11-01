@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hillBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="60%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#BAE6FD" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#hillBg)" />
+  <!-- Mountains -->
+  <polygon points="100,500 280,260 460,500" fill="#0369A1" opacity="0.6" />
+  <polygon points="320,520 540,220 760,520" fill="#075985" opacity="0.7" />
+  <polygon points="-50,600 220,340 500,600" fill="#0C4A6E" />
+  <polygon points="360,600 620,380 900,600" fill="#082F49" />
+  <!-- Pine trees -->
+  <polygon points="200,420 220,380 240,420" fill="#064E3B" />
+  <polygon points="195,445 220,405 245,445" fill="#064E3B" />
+  <polygon points="250,450 270,410 290,450" fill="#047857" />
+  <polygon points="560,460 580,415 600,460" fill="#064E3B" />
+  <!-- Clouds & road -->
+  <ellipse cx="200" cy="180" rx="80" ry="25" fill="#FFFFFF" opacity="0.8" />
+  <ellipse cx="600" cy="150" rx="110" ry="35" fill="#FFFFFF" opacity="0.85" />
+  <text x="50%" y="80" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="28" font-weight="bold" letter-spacing="2">ROAD TRIP ADVENTURE</text>
+  <text x="50%" y="115" text-anchor="middle" fill="#0F172A" opacity="0.75" font-family="sans-serif" font-size="16">Chuyến đi trốn thành phố lên đồi săn mây</text>
+</svg>

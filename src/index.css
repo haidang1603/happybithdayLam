@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-space: #070817;
+    --color-space-card: rgba(15, 23, 42, 0.7);
+    --color-purple: #6D4AFF;
+    --color-pink: #E879F9;
+    --color-blue: #38BDF8;
+    --color-gold: #FACC15;
+    --color-star: #F8FAFC;
+    
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--color-star);
+    background-color: var(--color-space);
+  }
+
+  body {
+    background-color: #070817;
+    color: #F8FAFC;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom Typography Classes */
+.font-heading {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.font-body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: rgba(13, 16, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+}
+
+.glass-panel-glow {
+  background: rgba(13, 16, 38, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(109, 74, 255, 0.3);
+  box-shadow: 0 0 30px -5px rgba(109, 74, 255, 0.25), 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.glass-dock {
+  background: rgba(7, 8, 23, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(109, 74, 255, 0.2);
+}
+
+/* Cosmic Glows */
+.glow-purple {
+  box-shadow: 0 0 25px rgba(109, 74, 255, 0.45);
+}
+
+.glow-gold {
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.45);
+}
+
+.glow-blue {
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
+}
+
+.glow-pink {
+  box-shadow: 0 0 25px rgba(232, 121, 249, 0.45);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 18px rgba(250, 204, 21, 0.7);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 18px rgba(109, 74, 255, 0.7);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070817;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(109, 74, 255, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(109, 74, 255, 0.7);
+}
+
+/* Pulsing and Floating Keyframes */
+@keyframes cosmic-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1.5deg);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.animate-cosmic-float {
+  animation: cosmic-float 6s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}

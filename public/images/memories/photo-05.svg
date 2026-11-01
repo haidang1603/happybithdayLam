@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="teaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14532D" />
+      <stop offset="50%" stop-color="#15803D" />
+      <stop offset="100%" stop-color="#84CC16" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#teaBg)" />
+  <!-- Milk tea cup -->
+  <polygon points="340,240 460,240 435,480 365,480" fill="#FEF08A" opacity="0.9" />
+  <ellipse cx="400" cy="240" rx="60" ry="15" fill="#FDE047" stroke="#CA8A04" stroke-width="3" />
+  <!-- Straw -->
+  <line x1="410" y1="160" x2="385" y2="460" stroke="#EF4444" stroke-width="12" stroke-linecap="round" />
+  <!-- Boba pearls -->
+  <circle cx="380" cy="455" r="9" fill="#1C1917" />
+  <circle cx="400" cy="460" r="10" fill="#1C1917" />
+  <circle cx="420" cy="455" r="9" fill="#1C1917" />
+  <circle cx="390" cy="435" r="10" fill="#1C1917" />
+  <circle cx="410" cy="438" r="9" fill="#1C1917" />
+  <!-- Cute smiley face on cup -->
+  <circle cx="385" cy="340" r="4" fill="#713F12" />
+  <circle cx="415" cy="340" r="4" fill="#713F12" />
+  <path d="M 390 355 Q 400 368 410 355" stroke="#713F12" stroke-width="3" fill="none" stroke-linecap="round" />
+  <text x="50%" y="80" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="28" font-weight="bold" letter-spacing="2">BOBA CHEER UP</text>
+  <text x="50%" y="115" text-anchor="middle" fill="#FEF9C3" opacity="0.9" font-family="sans-serif" font-size="16">Cốc trà sữa động viên những ngày trượt môn</text>
+</svg>
