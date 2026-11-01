@@ -90,15 +90,15 @@ export type MemoryItem = z.infer<typeof MemoryItemSchema>;
 export type TimelineItem = z.infer<typeof TimelineItemSchema>;
 
 export const birthdayConfig: BirthdayConfig = {
-  recipientName: "Ánh Dương",
-  recipientNickname: "Cô bạn sao Hỏa",
+  recipientName: "Nguyễn Y Thị Mỹ Lam",
+  recipientNickname: "Mỹ Lam",
   senderName: "Người bạn Trái Đất",
-  birthdayDate: "2026-11-02",
-  age: 22,
+  birthdayDate: "2006-12-02",
+  age: 20,
   theme: "galaxy",
   
   hero: {
-    badge: "Vũ Trụ Kỷ Niệm ✦ Edition 2026",
+    badge: "Vũ Trụ Kỷ Niệm ✦ 02/12/2006",
     preTitle: "Somewhere in this vast universe...",
     title: "Có một vì sao đặc biệt đang tỏa sáng hôm nay",
     subtitle: "Một vũ trụ mini ngập tràn kỷ niệm, tiếng cười và những điều bất ngờ được lập trình riêng để chúc mừng sinh nhật cậu!",
@@ -200,9 +200,9 @@ export const birthdayConfig: BirthdayConfig = {
     },
     {
       id: "event-005",
-      date: "Hôm nay ✦ 2026",
+      date: "02/12 ✦ Tuổi 20 rực rỡ",
       title: "Vũ trụ tuổi mới rực rỡ",
-      description: "Một cột mốc mới trên hành trình trưởng thành. Chúc cho tình bạn của chúng mình mãi bền chặt và luôn rộn rã tiếng cười!",
+      description: "Một cột mốc mới trên hành trình trưởng thành của Mỹ Lam. Chúc cho tình bạn của chúng mình mãi bền chặt và luôn rộn rã tiếng cười!",
       tag: "Hiện tại & Tương lai",
       icon: "Crown",
     },
@@ -228,17 +228,17 @@ export const birthdayConfig: BirthdayConfig = {
   letter: {
     title: "LÁ THƯ TỪ TRẠM VŨ TRỤ",
     subtitle: "Những dòng tâm sự chân thành gửi tới người bạn tuyệt vời",
-    salutation: "Gửi Ánh Dương thân mến,",
+    salutation: "Gửi Mỹ Lam thân mến,",
     paragraphs: [
       "Chúc mừng sinh nhật nhé!",
-      "Vậy là cậu lại bước sang một tuổi mới rồi. Nhìn lại chặng đường vừa qua, tớ cảm thấy thật may mắn khi trên hành trình ấy luôn có sự đồng hành của một người bạn như cậu.",
+      "Vậy là cậu lại bước sang tuổi 20 rồi. Nhìn lại chặng đường vừa qua, tớ cảm thấy thật may mắn khi trên hành trình ấy luôn có sự đồng hành của một người bạn như cậu.",
       "Cảm ơn cậu vì đã luôn là một người bạn lắng nghe kiên nhẫn, luôn mang lại năng lượng tích cực và những trận cười sảng khoái dù trong những ngày áp lực nhất. Tình bạn của chúng mình không màu mè, không sến súa, nhưng lúc nào cũng chân thật và ấm áp.",
-      "Bước sang tuổi mới, chúc cậu luôn mạnh khỏe, giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường để theo đuổi mọi ước mơ, mục tiêu mà cậu đang ấp ủ. Mong rằng cuộc sống sẽ đối xử thật dịu dàng với cậu, và những điều tốt đẹp nhất sẽ luôn tìm đến cậu.",
+      "Bước sang tuổi 20 thật đẹp, chúc Mỹ Lam luôn mạnh khỏe, giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường để theo đuổi mọi ước mơ, mục tiêu mà cậu đang ấp ủ. Mong rằng cuộc sống sẽ đối xử thật dịu dàng với cậu, và những điều tốt đẹp nhất sẽ luôn tìm đến cậu.",
       "Cho dù vũ trụ có rộng lớn bao la và cuộc sống có bận rộn đến đâu, hãy nhớ rằng cậu luôn có một người bạn đồng hành đáng tin cậy ở đây.",
-      "Tuổi mới thật rực rỡ và thành công nhé bạn tôi!",
+      "Tuổi 20 thật rực rỡ và thành công nhé bạn tôi!",
     ],
     signature: "Bạn thân của cậu,",
-    footerNote: "Trái Đất — Ngày đặc biệt của Ánh Dương",
+    footerNote: "Trái Đất — Ngày 02/12 đặc biệt của Mỹ Lam",
   },
   
   finale: {
@@ -256,3 +256,4 @@ export const birthdayConfig: BirthdayConfig = {
     autoPlayPrompt: "Bật âm thanh không gian để có trải nghiệm trọn vẹn nhất",
   },
 };
+
