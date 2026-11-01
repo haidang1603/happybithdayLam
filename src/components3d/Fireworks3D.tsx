@@ -19,14 +19,34 @@ interface Particle {
   maxLife: number;
 }
 
+function createFireworkTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 32;
+  canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.9)');
+    gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.3)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 32, 32);
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.needsUpdate = true;
+  return texture;
+}
+
 export function Fireworks3D() {
   const pointsRef = useRef<THREE.Points>(null!);
   const isLowPerformance = useExperienceStore((state) => state.isLowPerformance);
   const currentScene = useExperienceStore((state) => state.currentScene);
 
-  const maxParticles = isLowPerformance ? 400 : 1200;
+  const maxParticles = isLowPerformance ? 300 : 800;
   const particles = useRef<Particle[]>([]);
   const lastSpawnTime = useRef(0);
+  const particleTexture = useMemo(() => createFireworkTexture(), []);
 
   const colorsPalette = useMemo(() => [
     new THREE.Color('#FACC15'), // Gold
@@ -46,7 +66,7 @@ export function Fireworks3D() {
 
   const spawnBurst = (cx: number, cy: number, cz: number) => {
     const burstColor = colorsPalette[Math.floor(Math.random() * colorsPalette.length)];
-    const count = isLowPerformance ? 30 : 60;
+    const count = isLowPerformance ? 25 : 50;
 
     audioManager.playFireworkSfx();
 
@@ -58,7 +78,7 @@ export function Fireworks3D() {
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
-      const speed = Math.random() * 4.5 + 2.0;
+      const speed = Math.random() * 3.5 + 1.5;
 
       particles.current.push({
         x: cx,
@@ -66,13 +86,13 @@ export function Fireworks3D() {
         z: cz,
         vx: speed * Math.sin(phi) * Math.cos(theta),
         vy: speed * Math.sin(phi) * Math.sin(theta),
-        vz: speed * Math.cos(phi),
+        vz: speed * Math.cos(phi) * 0.4, // Keep depth spread controlled
         r: burstColor.r,
         g: burstColor.g,
         b: burstColor.b,
         alpha: 1.0,
         life: 0,
-        maxLife: Math.random() * 0.8 + 1.2,
+        maxLife: Math.random() * 0.7 + 1.0,
       });
     }
   };
@@ -81,16 +101,14 @@ export function Fireworks3D() {
     if (currentScene !== 'finale') return;
 
     const time = state.clock.elapsedTime;
-    // Spawn a new burst every ~1.2 seconds
-    if (time - lastSpawnTime.current > 1.2) {
+    if (time - lastSpawnTime.current > 1.3) {
       lastSpawnTime.current = time;
-      const rx = (Math.random() - 0.5) * 12;
-      const ry = Math.random() * 5 + 2;
-      const rz = (Math.random() - 0.5) * 6;
+      const rx = (Math.random() - 0.5) * 10;
+      const ry = Math.random() * 4 + 2;
+      const rz = -Math.random() * 5 - 2; // Kept in background
       spawnBurst(rx, ry, rz);
     }
 
-    // Update particles physics
     const activeParticles = particles.current;
     for (let i = activeParticles.length - 1; i >= 0; i--) {
       const p = activeParticles[i];
@@ -100,10 +118,9 @@ export function Fireworks3D() {
         continue;
       }
 
-      // Drag and gravity
-      p.vx *= 0.96;
-      p.vy = p.vy * 0.96 - 2.5 * delta;
-      p.vz *= 0.96;
+      p.vx *= 0.95;
+      p.vy = p.vy * 0.95 - 2.0 * delta;
+      p.vz *= 0.95;
 
       p.x += p.vx * delta;
       p.y += p.vy * delta;
@@ -112,7 +129,6 @@ export function Fireworks3D() {
       p.alpha = 1 - p.life / p.maxLife;
     }
 
-    // Write buffer attributes
     const pos = positions;
     const col = colors;
     for (let i = 0; i < maxParticles; i++) {
@@ -150,12 +166,14 @@ export function Fireworks3D() {
         <bufferAttribute attach="attributes-color" args={[colors, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.24}
+        map={particleTexture}
+        size={0.35}
         vertexColors
         transparent
         opacity={0.9}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
+        sizeAttenuation={true}
       />
     </points>
   );
