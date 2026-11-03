@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type SceneId = 'portal' | 'cake' | 'memories' | 'timeline' | 'gift' | 'letter' | 'finale';
+export type SceneId = 'portal' | 'cake' | 'memories' | 'gift' | 'letter' | 'finale';
 
 export interface SceneMeta {
   id: SceneId;
@@ -13,7 +13,6 @@ export const SCENE_ORDER: SceneMeta[] = [
   { id: 'portal', label: 'Cổng Vũ Trụ', shortTitle: 'Cổng Khởi Đầu', iconName: 'Compass' },
   { id: 'cake', label: 'Bánh Sinh Nhật', shortTitle: 'Thổi Nến Ước Nguyện', iconName: 'Cake' },
   { id: 'memories', label: 'Album Kỷ Niệm', shortTitle: 'Khoảnh Khắc Đẹp', iconName: 'Images' },
-  { id: 'timeline', label: 'Hành Trình', shortTitle: 'Dòng Kỷ Niệm', iconName: 'Milestone' },
   { id: 'gift', label: 'Hộp Quà Bí Mật', shortTitle: 'Quà Bất Ngờ', iconName: 'Gift' },
   { id: 'letter', label: 'Thư Chúc Mừng', shortTitle: 'Tâm Thư Chân Thành', iconName: 'Mail' },
   { id: 'finale', label: 'Pháo Hoa Rực Rỡ', shortTitle: 'Khép Lại Rạng Rỡ', iconName: 'Sparkles' },
@@ -129,3 +128,4 @@ export const useExperienceStore = create<ExperienceState>((set, get) => ({
     activeMemoryId: null,
   }),
 }));
+

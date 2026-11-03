@@ -141,9 +141,9 @@ export function MemoryScene() {
       <div className="pt-3 z-20">
         <button
           onClick={handleNext}
-          className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-lg glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+          className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-lg glow-gold hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
         >
-          <span>Khám phá Hành trình tình bạn</span>
+          <span>Khám phá Hộp quà bí mật</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

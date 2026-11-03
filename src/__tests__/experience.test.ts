@@ -67,8 +67,8 @@ describe('Experience Store State Transitions', () => {
     useExperienceStore.getState().nextScene(); // to 'memories'
     expect(useExperienceStore.getState().currentScene).toBe('memories');
 
-    useExperienceStore.getState().nextScene(); // to 'timeline'
-    expect(useExperienceStore.getState().currentScene).toBe('timeline');
+    useExperienceStore.getState().nextScene(); // to 'gift'
+    expect(useExperienceStore.getState().currentScene).toBe('gift');
 
     useExperienceStore.getState().prevScene(); // back to 'memories'
     expect(useExperienceStore.getState().currentScene).toBe('memories');
@@ -98,3 +98,4 @@ describe('Experience Store State Transitions', () => {
     expect(state.giftOpened).toBe(false);
   });
 });
+

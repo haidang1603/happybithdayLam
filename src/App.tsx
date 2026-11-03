@@ -11,7 +11,6 @@ import { MemoryLightbox } from '@/features/memories/MemoryLightbox';
 import { GalaxyPortalScene } from '@/scenes/GalaxyPortal/GalaxyPortalScene';
 import { BirthdayScene } from '@/scenes/BirthdayScene/BirthdayScene';
 import { MemoryScene } from '@/scenes/MemoryScene/MemoryScene';
-import { TimelineScene } from '@/scenes/TimelineScene/TimelineScene';
 import { GiftScene } from '@/scenes/GiftScene/GiftScene';
 import { LetterScene } from '@/scenes/LetterScene/LetterScene';
 import { FinaleScene } from '@/scenes/FinaleScene/FinaleScene';
@@ -87,19 +86,6 @@ export default function App() {
               className="w-full min-h-screen"
             >
               <MemoryScene />
-            </motion.div>
-          )}
-
-          {currentScene === 'timeline' && (
-            <motion.div
-              key="timeline"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.5 }}
-              className="w-full min-h-screen"
-            >
-              <TimelineScene />
             </motion.div>
           )}
 
