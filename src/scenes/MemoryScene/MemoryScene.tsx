@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Sparkles, Calendar, Maximize2, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { useExperienceStore } from '@/stores/useExperienceStore';
 import { birthdayConfig, MemoryItem } from '@/config/birthday.config';
 import { audioManager } from '@/utils/audioManager';
@@ -35,64 +35,30 @@ export function MemoryScene() {
           VŨ TRỤ KÝ ỨC
         </h2>
         <p className="text-slate-300 text-xs sm:text-sm">
-          Từng khoảnh khắc trôi qua đều là những mảnh ghép quý giá làm nên tình bạn tuyệt vời này!
+          Chạm vào ảnh bất kỳ để xem trọn vẹn ở kích thước lớn
         </p>
       </motion.div>
 
-      {/* Grid of Polaroid Cards */}
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-2">
+      {/* Masonry Columns of Photo Frames - Natural Aspect Ratio & No Text */}
+      <div className="w-full max-w-6xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-5 px-3">
         {birthdayConfig.memories.map((item: MemoryItem, index: number) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.5) }}
-            whileHover={{ y: -8, scale: 1.02 }}
+            transition={{ duration: 0.4, delay: Math.min(index * 0.04, 0.4) }}
+            whileHover={{ y: -6, scale: 1.015 }}
             onClick={() => handleCardClick(item.id)}
-            className="group relative cursor-pointer"
+            className="break-inside-avoid mb-5 group cursor-pointer"
           >
-            {/* Polaroid Styling Container */}
-            <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-3 shadow-xl hover:border-purple-500/50 hover:shadow-purple-500/20 transition-all duration-300 backdrop-blur-md flex flex-col">
-              {/* Photo Area */}
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-black/40">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-
-                {/* Hover overlay hint */}
-                <div className="absolute inset-0 bg-purple-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="p-2 rounded-full glass-dock text-white">
-                    <Maximize2 className="w-4 h-4" />
-                  </span>
-                </div>
-
-                {item.tag && (
-                  <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-medium glass-dock text-purple-200 border border-purple-400/20">
-                    {item.tag}
-                  </span>
-                )}
-              </div>
-
-              {/* Caption & Date Area */}
-              <div className="pt-3 pb-1 px-1 space-y-1">
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="flex items-center gap-1 text-cyan-400 font-mono">
-                    <Calendar className="w-3 h-3" />
-                    {item.date}
-                  </span>
-                </div>
-
-                <h3 className="text-base font-bold font-heading text-white truncate group-hover:text-purple-300 transition-colors">
-                  {item.title}
-                </h3>
-
-                <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+            {/* Clean Photo Frame: fits each photo naturally without cropping */}
+            <div className="bg-slate-900/80 border border-white/15 hover:border-purple-400/60 rounded-2xl p-2.5 shadow-xl hover:shadow-purple-500/25 transition-all duration-300 backdrop-blur-md">
+              <img
+                src={item.image}
+                alt="Kỷ niệm"
+                className="w-full h-auto rounded-xl object-contain block transition-transform duration-300 group-hover:scale-[1.01]"
+                loading="lazy"
+              />
             </div>
           </motion.div>
         ))}
@@ -111,4 +77,3 @@ export function MemoryScene() {
     </div>
   );
 }
-

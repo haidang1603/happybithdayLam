@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, Calendar, Tag } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useExperienceStore } from '@/stores/useExperienceStore';
 import { birthdayConfig } from '@/config/birthday.config';
 import { audioManager } from '@/utils/audioManager';
@@ -93,45 +93,22 @@ export function MemoryLightbox() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 15 }}
           transition={{ duration: 0.3 }}
-          className="max-w-2xl w-full bg-slate-900/90 border border-purple-500/30 rounded-3xl overflow-hidden shadow-2xl glass-panel-glow"
+          className="max-w-3xl w-full max-h-[90vh] bg-slate-900/95 border border-purple-500/30 rounded-3xl overflow-hidden shadow-2xl glass-panel-glow flex flex-col p-3"
         >
-          {/* Image Display */}
-          <div className="relative aspect-video sm:aspect-[16/10] bg-black/50 overflow-hidden flex items-center justify-center">
+          {/* Image Display - Natural Fit */}
+          <div className="relative w-full flex-1 min-h-0 bg-black/40 rounded-2xl overflow-hidden flex items-center justify-center p-2">
             <img
               src={currentMemory.image}
-              alt={currentMemory.title}
-              className="w-full h-full object-cover sm:object-contain"
+              alt="Kỷ niệm"
+              className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl"
             />
-            {currentMemory.tag && (
-              <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold glass-dock text-purple-300 border border-purple-400/30 flex items-center gap-1.5">
-                <Tag className="w-3 h-3 text-pink-400" />
-                {currentMemory.tag}
-              </span>
-            )}
-          </div>
-
-          {/* Details */}
-          <div className="p-6 space-y-3">
-            <div className="flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5 text-cyan-400">
-                <Calendar className="w-3.5 h-3.5" />
-                {currentMemory.date}
-              </span>
-              <span className="text-slate-500 font-mono">
-                {currentIndex + 1} / {memories.length}
-              </span>
-            </div>
-
-            <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
-              {currentMemory.title}
-            </h3>
-
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-body">
-              {currentMemory.description}
-            </p>
+            <span className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-mono glass-dock text-slate-300">
+              {currentIndex + 1} / {memories.length}
+            </span>
           </div>
         </motion.div>
       </div>
     </AnimatePresence>
   );
 }
+
