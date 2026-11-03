@@ -46,9 +46,18 @@ export function FinaleScene() {
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.0, ease: 'easeOut' }}
-        className="max-w-2xl mx-auto my-auto glass-panel-glow p-8 sm:p-12 rounded-3xl border-yellow-400/40 shadow-2xl space-y-6"
+        className="max-w-2xl mx-auto my-auto glass-panel-glow p-6 sm:p-10 rounded-3xl border-yellow-400/40 shadow-2xl space-y-5"
       >
-        <p className="text-sm sm:text-base md:text-lg text-yellow-200 font-light italic leading-relaxed">
+        {/* Featured Portrait */}
+        <div className="w-28 h-28 sm:w-36 sm:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-yellow-400 via-pink-500 to-cyan-400 shadow-2xl glow-gold">
+          <img
+            src="/images/memories/Messenger_creation_CFF913A4-BF43-48E9-805D-0FB809505E4F.jpeg"
+            alt={birthdayConfig.recipientName}
+            className="w-full h-full object-cover rounded-full"
+          />
+        </div>
+
+        <p className="text-sm sm:text-base text-yellow-200 font-light italic leading-relaxed">
           {birthdayConfig.finale.quote}
         </p>
 
@@ -94,3 +103,4 @@ export function FinaleScene() {
     </div>
   );
 }
+

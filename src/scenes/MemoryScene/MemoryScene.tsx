@@ -46,7 +46,7 @@ export function MemoryScene() {
             key={item.id}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.5) }}
             whileHover={{ y: -8, scale: 1.02 }}
             onClick={() => handleCardClick(item.id)}
             className="group relative cursor-pointer"
@@ -111,3 +111,4 @@ export function MemoryScene() {
     </div>
   );
 }
+

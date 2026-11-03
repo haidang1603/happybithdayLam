@@ -125,6 +125,22 @@ export function TimelineScene() {
                     <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
                       {event.description}
                     </p>
+
+                    {event.image && isSelected && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-3 rounded-xl overflow-hidden aspect-video max-h-48 bg-black/40 border border-white/10"
+                      >
+                        <img
+                          src={event.image}
+                          alt={event.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </motion.div>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -146,3 +162,4 @@ export function TimelineScene() {
     </div>
   );
 }
+
