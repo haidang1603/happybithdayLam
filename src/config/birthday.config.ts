@@ -26,7 +26,7 @@ export const BirthdayConfigSchema = z.object({
   birthdayDate: z.string(),
   age: z.number().optional(),
   theme: z.enum(['galaxy', 'nebula', 'aurora', 'supernova']).default('galaxy'),
-  
+
   hero: z.object({
     badge: z.string(),
     preTitle: z.string(),
@@ -34,7 +34,7 @@ export const BirthdayConfigSchema = z.object({
     subtitle: z.string(),
     ctaText: z.string(),
   }),
-  
+
   cake: z.object({
     heading: z.string(),
     subtitle: z.string(),
@@ -43,11 +43,11 @@ export const BirthdayConfigSchema = z.object({
     relightButtonText: z.string(),
     afterBlowMessage: z.string(),
   }),
-  
+
   memories: z.array(MemoryItemSchema),
-  
+
   timeline: z.array(TimelineItemSchema),
-  
+
   gift: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -59,7 +59,7 @@ export const BirthdayConfigSchema = z.object({
     rewardDetails: z.array(z.string()),
     ps: z.string(),
   }),
-  
+
   letter: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -68,14 +68,14 @@ export const BirthdayConfigSchema = z.object({
     signature: z.string(),
     footerNote: z.string(),
   }),
-  
+
   finale: z.object({
     quote: z.string(),
     heading: z.string(),
     subheading: z.string(),
     replayButtonText: z.string(),
   }),
-  
+
   music: z.object({
     enabled: z.boolean(),
     trackName: z.string(),
@@ -96,24 +96,24 @@ export const birthdayConfig: BirthdayConfig = {
   birthdayDate: "2006-12-02",
   age: 20,
   theme: "galaxy",
-  
+
   hero: {
     badge: "Vũ Trụ Kỷ Niệm ✦ 02/12/2006",
     preTitle: "Somewhere in this vast universe...",
     title: "Có một vì sao đặc biệt đang tỏa sáng hôm nay",
-    subtitle: "Một vũ trụ mini ngập tràn kỷ niệm, tiếng cười và những điều bất ngờ được lập trình riêng để chúc mừng sinh nhật cậu!",
+    subtitle: "Một vũ trụ mini ngập tràn kỷ niệm, tiếng cười và những điều bất ngờ được lập trình riêng để chúc mừng sinh nhật chú!",
     ctaText: "BẮT ĐẦU CHUYẾN DU HÀNH VŨ TRỤ",
   },
-  
+
   cake: {
     heading: "HAPPY BIRTHDAY!",
     subtitle: "Thêm một tuổi mới, thêm một hành trình rực rỡ giữa dải ngân hà!",
     candleWish: "Nhắm mắt lại, nghĩ về 1 điều ước chân thành nhất rồi hãy bấm thổi nến nhé...",
     blowButtonText: "✦ Thổi Nến Ước Nguyện ✦",
     relightButtonText: "Thắp lại ngọn nến",
-    afterBlowMessage: "Điều ước đã được gửi tới trạm thu sóng vũ trụ! Mong mọi điều tốt lành nhất sẽ thành hiện thực với cậu!",
+    afterBlowMessage: "Điều ước đã được gửi tới trạm thu sóng vũ trụ! Mong mọi điều tốt lành nhất sẽ thành hiện thực với chú!",
   },
-  
+
   memories: [
     {
       id: "memory-001",
@@ -260,7 +260,7 @@ export const birthdayConfig: BirthdayConfig = {
       tag: "Best Memory ✨",
     },
   ],
-  
+
   timeline: [
     {
       id: "event-001",
@@ -308,47 +308,47 @@ export const birthdayConfig: BirthdayConfig = {
       image: "/images/memories/my_lam_finale.jpg",
     },
   ],
-  
+
   gift: {
     title: "HỘP QUÀ BÍ MẬT 3D",
     subtitle: "Một món quà tinh thần đặc biệt được bọc kín giữa các vì sao. Nhấn để mở nắp!",
     closedHint: "✦ Nhấn vào hộp quà để mở điều bí mật ✦",
-    openTitle: "SURPRISE! CHÚC MỪNG SINH NHẬT CẬU!",
+    openTitle: "SURPRISE! CHÚC MỪNG SINH NHẬT CHÚ!",
     badge: "Vip Friendship Pass ✦ Phiên bản vĩnh viễn",
-    message: "Tình bạn với cậu là một trong những điều tuyệt vời và may mắn nhất mà vũ trụ đã trao tặng cho tớ!",
+    message: "Tình bạn với chú là một trong những điều tuyệt vời và may mắn nhất mà vũ trụ đã trao tặng cho anh!",
     rewardTitle: "ĐẶC QUYỀN TÌNH BẠN KÈM THEO:",
     rewardDetails: [
-      "01 Vé bao trọn gói 1 bữa lẩu/nướng full topping bất cứ lúc nào cậu thèm.",
+      "01 Vé bao trọn gói 1 bữa lẩu/nướng full topping bất cứ lúc nào chú thèm.",
       "01 Phiếu miễn trừ cằn nhằn trong 365 ngày tiếp theo (áp dụng mọi hoàn cảnh).",
-      "Dịch vụ tài xế kiêm tổng đài tâm sự 24/7 không tính cước khi cậu cần chia sẻ.",
-      "Và vô vàn năng lượng tích cực, may mắn gửi thẳng tới quỹ đạo của cậu!",
+      "Dịch vụ tài xế kiêm tổng đài tâm sự 24/7 không tính cước khi chú cần chia sẻ.",
+      "Và vô vàn năng lượng tích cực, may mắn gửi thẳng tới quỹ đạo của chú!",
     ],
     ps: "*Lưu ý: Thẻ quà tặng có giá trị sử dụng vô thời hạn và không thể quy đổi ra tiền mặt nhưng có thể quy đổi ra niềm vui không giới hạn!",
   },
-  
+
   letter: {
     title: "LÁ THƯ TỪ TRẠM VŨ TRỤ",
     subtitle: "Những dòng tâm sự chân thành gửi tới người bạn tuyệt vời",
     salutation: "Gửi Lam thân mến,",
     paragraphs: [
       "Chúc mừng sinh nhật nhé!",
-      "Vậy là cậu lại bước sang tuổi 20 rồi. Nhìn lại chặng đường vừa qua, tớ cảm thấy thật may mắn khi trên hành trình ấy luôn có sự đồng hành của một người bạn như cậu.",
-      "Cảm ơn cậu vì đã luôn là một người bạn lắng nghe kiên nhẫn, luôn mang lại năng lượng tích cực và những trận cười sảng khoái dù trong những ngày áp lực nhất. Tình bạn của chúng mình không màu mè, không sến súa, nhưng lúc nào cũng chân thật và ấm áp.",
-      "Bước sang tuổi 20 thật đẹp, chúc Lam luôn mạnh khỏe, giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường để theo đuổi mọi ước mơ, mục tiêu mà cậu đang ấp ủ. Mong rằng cuộc sống sẽ đối xử thật dịu dàng với cậu, và những điều tốt đẹp nhất sẽ luôn tìm đến cậu.",
-      "Cho dù vũ trụ có rộng lớn bao la và cuộc sống có bận rộn đến đâu, hãy nhớ rằng cậu luôn có một người bạn đồng hành đáng tin cậy ở đây.",
-      "Tuổi 20 thật rực rỡ và thành công nhé bạn tôi!",
+      "Vậy là chú lại bước sang tuổi 20 rồi. Nhìn lại chặng đường vừa qua, anh cảm thấy thật may mắn khi trên hành trình ấy luôn có sự đồng hành của một người bạn như chú.",
+      "Cảm ơn chú vì đã luôn là một người bạn lắng nghe kiên nhẫn, luôn mang lại năng lượng tích cực và những trận cười sảng khoái dù trong những ngày áp lực nhất. Tình bạn của chúng mình không màu mè, không sến súa, nhưng lúc nào cũng chân thật và ấm áp.",
+      "Bước sang tuổi 20 thật đẹp, chúc Lam luôn mạnh khỏe, giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường để theo đuổi mọi ước mơ, mục tiêu mà chú đang ấp ủ. Mong rằng cuộc sống sẽ đối xử thật dịu dàng với chú, và những điều tốt đẹp nhất sẽ luôn tìm đến chú.",
+      "Cho dù vũ trụ có rộng lớn bao la và cuộc sống có bận rộn đến đâu, hãy nhớ rằng chú luôn có một người bạn đồng hành đáng tin cậy ở đây.",
+      "Tuổi 20 thật rực rỡ và thành công nhé chú tôi!",
     ],
-    signature: "Bạn thân của cậu,",
+    signature: "Cốt của chú,",
     footerNote: "Trái Đất — Ngày 02/12 đặc biệt của Lam",
   },
-  
+
   finale: {
     quote: "“Vũ trụ rộng lớn vô tận với hàng tỷ vì sao, nhưng tìm được một người bạn tâm đầu ý hợp là điều kỳ diệu nhất.”",
-    heading: "CHÚC MỪNG SINH NHẬT CẬU!",
-    subheading: "Chúc cho mọi ước mơ của cậu sẽ cất cánh và tỏa sáng rực rỡ như những chòm sao!",
+    heading: "CHÚC MỪNG SINH NHẬT CHÚ!",
+    subheading: "Chúc cho mọi ước mơ của chú sẽ cất cánh và tỏa sáng rực rỡ như những chòm sao!",
     replayButtonText: "✦ Trải Nghiệm Lại Từ Đầu ✦",
   },
-  
+
   music: {
     enabled: true,
     trackName: "Cosmic Birthday Serenade",
