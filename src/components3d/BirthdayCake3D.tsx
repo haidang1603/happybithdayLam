@@ -80,18 +80,36 @@ export function BirthdayCake3D() {
     }
   });
 
-  const handleCandleClick = () => {
+  const handleCandleClick = (e: any) => {
+    e?.stopPropagation?.();
     if (!candleBlown) {
       audioManager.playBlowCandleSfx();
       triggerBirthdayConfetti();
       setCandleBlown(true);
+    } else {
+      audioManager.playButtonSfx();
+      setCandleBlown(false);
     }
+  };
+
+  const handlePointerOver = (e: any) => {
+    e?.stopPropagation?.();
+    document.body.style.cursor = 'pointer';
+  };
+
+  const handlePointerOut = () => {
+    document.body.style.cursor = 'auto';
   };
 
   return (
     <group position={[0, -0.6, 0]}>
       {/* Central Rotating Cake Group */}
-      <group ref={cakeGroup} onClick={handleCandleClick}>
+      <group
+        ref={cakeGroup}
+        onClick={handleCandleClick}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
+      >
         {/* Tier 1 - Bottom Tier */}
         <mesh position={[0, -0.6, 0]} castShadow receiveShadow>
           <cylinderGeometry args={[2.2, 2.2, 1.2, 48]} />

@@ -62,7 +62,8 @@ export function GiftBox3D() {
     }
   });
 
-  const handleClick = () => {
+  const handleClick = (e: any) => {
+    e?.stopPropagation?.();
     if (!giftOpened) {
       audioManager.playGiftOpenSfx();
       triggerGiftSparkles();
@@ -70,8 +71,23 @@ export function GiftBox3D() {
     }
   };
 
+  const handlePointerOver = (e: any) => {
+    e?.stopPropagation?.();
+    document.body.style.cursor = 'pointer';
+  };
+
+  const handlePointerOut = () => {
+    document.body.style.cursor = 'auto';
+  };
+
   return (
-    <group ref={boxGroup} position={[0, 0, 0]} onClick={handleClick}>
+    <group
+      ref={boxGroup}
+      position={[0, 0, 0]}
+      onClick={handleClick}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+    >
       {/* Box Base (Container) */}
       <mesh position={[0, 0, 0]} castShadow receiveShadow>
         <boxGeometry args={[2.2, 1.9, 2.2]} />

@@ -48,7 +48,7 @@ export default function App() {
       <MemoryLightbox />
 
       {/* Scene Content Transitions */}
-      <main className="relative z-10 w-full min-h-screen">
+      <main className="relative z-10 w-full min-h-screen pointer-events-none">
         <AnimatePresence mode="wait">
           {currentScene === 'portal' && (
             <motion.div
@@ -57,7 +57,7 @@ export default function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
-              className="w-full min-h-screen"
+              className="w-full min-h-screen pointer-events-auto"
             >
               <GalaxyPortalScene />
             </motion.div>
@@ -70,7 +70,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
               transition={{ duration: 0.6 }}
-              className="w-full min-h-screen"
+              className="w-full min-h-screen pointer-events-none"
             >
               <BirthdayScene />
             </motion.div>
@@ -83,7 +83,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
-              className="w-full min-h-screen"
+              className="w-full min-h-screen pointer-events-auto"
             >
               <MemoryScene />
             </motion.div>
@@ -96,7 +96,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
               transition={{ duration: 0.5 }}
-              className="w-full min-h-screen"
+              className="w-full min-h-screen pointer-events-none"
             >
               <GiftScene />
             </motion.div>
@@ -109,7 +109,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
-              className="w-full min-h-screen"
+              className="w-full min-h-screen pointer-events-auto"
             >
               <LetterScene />
             </motion.div>
@@ -122,7 +122,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.7 }}
-              className="w-full min-h-screen"
+              className="w-full min-h-screen pointer-events-auto"
             >
               <FinaleScene />
             </motion.div>

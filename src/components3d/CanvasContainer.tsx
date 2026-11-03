@@ -44,9 +44,12 @@ export function CanvasContainer() {
           <OrbitControls
             enableZoom={false}
             enablePan={false}
-            rotateSpeed={0.6}
+            rotateSpeed={0.8}
+            enableDamping={true}
+            dampingFactor={0.06}
             maxPolarAngle={Math.PI / 1.7}
             minPolarAngle={Math.PI / 2.5}
+            enabled={currentScene === 'cake' || currentScene === 'gift'}
           />
         </Suspense>
       </Canvas>
