@@ -92,7 +92,7 @@ export type TimelineItem = z.infer<typeof TimelineItemSchema>;
 export const birthdayConfig: BirthdayConfig = {
   recipientName: "Nguyễn Y Thị Mỹ Lam",
   recipientNickname: "Nguyễn Lam",
-  senderName: "Người lùn m5",
+  senderName: "Lê Hải Đăng",
   birthdayDate: "2006-12-02",
   age: 20,
   theme: "galaxy",
@@ -336,7 +336,7 @@ export const birthdayConfig: BirthdayConfig = {
       "Cảm ơn chú vì đã luôn là một người bạn lắng nghe kiên nhẫn, luôn mang lại năng lượng tích cực và những trận cười sảng khoái dù trong những ngày áp lực nhất. Tình bạn của chúng mình không màu mè, không sến súa, nhưng lúc nào cũng chân thật và ấm áp.",
       "Bước sang tuổi 20 thật đẹp, chúc Lam luôn mạnh khỏe, giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường để theo đuổi mọi ước mơ, mục tiêu mà chú đang ấp ủ. Mong rằng cuộc sống sẽ đối xử thật dịu dàng với chú, và những điều tốt đẹp nhất sẽ luôn tìm đến chú.",
       "Cho dù vũ trụ có rộng lớn bao la và cuộc sống có bận rộn đến đâu, hãy nhớ rằng chú luôn có một người bạn đồng hành đáng tin cậy ở đây.",
-      "Tuổi 20 thật rực rỡ và thành công nhé chú tôi!",
+      "Tuổi 20 thật rực rỡ và thành công nhé bạn của tôi!",
     ],
     signature: "Cốt của chú,",
     footerNote: "Trái Đất — Ngày 02/12 đặc biệt của Lam",
@@ -351,8 +351,8 @@ export const birthdayConfig: BirthdayConfig = {
 
   music: {
     enabled: true,
-    trackName: "Cosmic Birthday Serenade",
-    artist: "Galaxy Ambient Studio",
+    trackName: "Vừa Vặn Gặp Được Cậu (刚好遇见你)",
+    artist: "Lý Ngọc Cương ✦ Nhạc nền sinh nhật",
     source: "/audio/birthday.mp3",
     autoPlayPrompt: "Bật âm thanh không gian để có trải nghiệm trọn vẹn nhất",
   },

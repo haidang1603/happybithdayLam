@@ -243,15 +243,20 @@ class CosmicAudioManager {
     this.initContext();
 
     if (customSource) {
-      if (!this.customAudio) {
+      if (!this.customAudio || this.customAudio.getAttribute('src') !== customSource) {
+        if (this.customAudio) {
+          this.customAudio.pause();
+        }
         this.customAudio = new Audio(customSource);
+        this.customAudio.setAttribute('src', customSource);
         this.customAudio.loop = true;
+        this.customAudio.preload = 'auto';
         this.customAudio.volume = this.isMuted ? 0 : this.volume * 0.7;
       }
       this.customAudio.play().then(() => {
         this.isUsingCustomAudio = true;
-      }).catch(() => {
-        // Fallback to procedural synth if file cannot be loaded
+      }).catch((err) => {
+        console.warn('Audio play request interrupted or prevented by browser policy, falling back to synth', err);
         this.startCosmicSynth();
       });
       return;
@@ -346,3 +351,4 @@ class CosmicAudioManager {
 }
 
 export const audioManager = new CosmicAudioManager();
+

@@ -52,8 +52,8 @@ export function MusicPlayer() {
         </div>
 
         {/* Track Title Info */}
-        <div className="hidden sm:flex flex-col overflow-hidden max-w-[90px]">
-          <span className="text-[10px] font-medium text-slate-300 truncate font-heading">
+        <div className="hidden sm:flex flex-col overflow-hidden max-w-[140px]">
+          <span className="text-[10px] font-medium text-slate-200 truncate font-heading">
             {birthdayConfig.music.trackName}
           </span>
           <span className="text-[9px] text-slate-400 truncate">
@@ -102,3 +102,4 @@ export function MusicPlayer() {
     </div>
   );
 }
+
