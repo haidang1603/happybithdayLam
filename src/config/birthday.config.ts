@@ -253,11 +253,11 @@ export const birthdayConfig: BirthdayConfig = {
     },
     {
       id: "memory-018",
-      image: "/images/memories/received_1395732522743956.jpeg",
-      title: "Món quà tình bạn",
-      description: "Mỗi kỷ niệm được lưu giữ lại đều là một viên ngọc quý trong vũ trụ tình bạn của hai đứa.",
-      date: "Tháng 10, 2026",
-      tag: "Đặc biệt",
+      image: "/images/memories/my_lam_finale.jpg",
+      title: "Mỹ Lam tuổi 20 rạng rỡ",
+      description: "Bức ảnh tuyệt đẹp ghi lại khoảnh khắc trong trẻo, dịu dàng và đầy sức hút của cô bạn thân Mỹ Lam.",
+      date: "02 Tháng 12, 2026",
+      tag: "Best Memory ✨",
     },
   ],
   
@@ -305,7 +305,7 @@ export const birthdayConfig: BirthdayConfig = {
       description: "Một cột mốc mới trên hành trình trưởng thành của Mỹ Lam. Chúc cho tình bạn của chúng mình mãi bền chặt và luôn rộn rã tiếng cười!",
       tag: "Hiện tại & Tương lai",
       icon: "Crown",
-      image: "/images/memories/Messenger_creation_CFF913A4-BF43-48E9-805D-0FB809505E4F.jpeg",
+      image: "/images/memories/my_lam_finale.jpg",
     },
   ],
   

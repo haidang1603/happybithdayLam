@@ -51,7 +51,7 @@ export function FinaleScene() {
         {/* Featured Portrait */}
         <div className="w-28 h-28 sm:w-36 sm:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-yellow-400 via-pink-500 to-cyan-400 shadow-2xl glow-gold">
           <img
-            src="/images/memories/Messenger_creation_CFF913A4-BF43-48E9-805D-0FB809505E4F.jpeg"
+            src="/images/memories/my_lam_finale.jpg"
             alt={birthdayConfig.recipientName}
             className="w-full h-full object-cover rounded-full"
           />
