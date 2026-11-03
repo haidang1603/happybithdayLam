@@ -1,12 +1,79 @@
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useExperienceStore } from '@/stores/useExperienceStore';
 import { birthdayConfig, MemoryItem } from '@/config/birthday.config';
 import { audioManager } from '@/utils/audioManager';
 
+interface TravelRowProps {
+  items: MemoryItem[];
+  direction: 'left' | 'right' | 'left-slow';
+  onCardClick: (id: string) => void;
+  floatClass: string;
+}
+
+function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps) {
+  // Duplicate items to ensure seamless infinite looping
+  const duplicatedItems = useMemo(() => [...items, ...items, ...items], [items]);
+
+  const animClass =
+    direction === 'left'
+      ? 'animate-travel-left'
+      : direction === 'right'
+      ? 'animate-travel-right'
+      : 'animate-travel-left-slow';
+
+  return (
+    <div className="relative w-full overflow-hidden py-1.5">
+      <div className={`flex items-center gap-4 sm:gap-6 w-max pause-on-hover ${animClass}`}>
+        {duplicatedItems.map((item, idx) => (
+          <div
+            key={`${item.id}-${idx}`}
+            onClick={() => onCardClick(item.id)}
+            className={`group cursor-pointer select-none transition-transform duration-300 hover:scale-105 hover:z-30 shrink-0 ${
+              idx % 2 === 0 ? floatClass : 'animate-float-b'
+            }`}
+            style={{
+              animationDelay: `${(idx % 5) * 0.4}s`,
+            }}
+          >
+            {/* Zero-gravity Floating Frame: Preserves natural aspect ratio without 1:1 squish */}
+            <div className="bg-slate-900/80 border border-white/20 group-hover:border-purple-400/80 rounded-2xl p-2 shadow-2xl backdrop-blur-md group-hover:shadow-purple-500/30 transition-all duration-300">
+              <img
+                src={item.image}
+                alt="Kỷ niệm"
+                className="h-32 sm:h-40 md:h-44 w-auto max-w-[280px] sm:max-w-[340px] rounded-xl object-contain block pointer-events-none"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function MemoryScene() {
   const setActiveMemoryId = useExperienceStore((state) => state.setActiveMemoryId);
   const nextScene = useExperienceStore((state) => state.nextScene);
+
+  const memories = birthdayConfig.memories;
+
+  // Split memories into 3 alternating rows
+  const { row1, row2, row3 } = useMemo(() => {
+    const r1: MemoryItem[] = [];
+    const r2: MemoryItem[] = [];
+    const r3: MemoryItem[] = [];
+
+    memories.forEach((mem, idx) => {
+      if (idx % 3 === 0) r1.push(mem);
+      else if (idx % 3 === 1) r2.push(mem);
+      else r3.push(mem);
+    });
+
+    return { row1: r1, row2: r2, row3: r3 };
+  }, [memories]);
 
   const handleCardClick = (id: string) => {
     audioManager.playButtonSfx();
@@ -19,56 +86,62 @@ export function MemoryScene() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between items-center px-4 pt-16 pb-28 z-10 select-none">
+    <div className="relative min-h-screen flex flex-col justify-between items-center pt-14 pb-24 z-10 select-none overflow-hidden">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center max-w-xl mx-auto space-y-2 mb-8"
+        className="text-center max-w-xl mx-auto space-y-1.5 px-4 z-20"
       >
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-pink-500/20 text-pink-300 border border-pink-400/30">
           <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
           KHO BÁU KỶ NIỆM
         </span>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading tracking-tight bg-gradient-to-r from-purple-300 via-pink-200 to-cyan-300 bg-clip-text text-transparent">
-          VŨ TRỤ KÝ ỨC
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading tracking-tight bg-gradient-to-r from-purple-300 via-pink-200 to-cyan-300 bg-clip-text text-transparent">
+          VŨ TRỤ KÝ ỨC LƠ LỬNG
         </h2>
-        <p className="text-slate-300 text-xs sm:text-sm">
-          Chạm vào ảnh bất kỳ để xem trọn vẹn ở kích thước lớn
+        <p className="text-slate-300 text-xs">
+          Các khoảnh khắc đang trôi lơ lửng đan xen trong không gian — Chạm vào ảnh để xem trọn vẹn
         </p>
       </motion.div>
 
-      {/* Masonry Columns of Photo Frames - Natural Aspect Ratio & No Text */}
-      <div className="w-full max-w-6xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-5 px-3">
-        {birthdayConfig.memories.map((item: MemoryItem, index: number) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: Math.min(index * 0.04, 0.4) }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            onClick={() => handleCardClick(item.id)}
-            className="break-inside-avoid mb-5 group cursor-pointer"
-          >
-            {/* Clean Photo Frame: fits each photo naturally without cropping */}
-            <div className="bg-slate-900/80 border border-white/15 hover:border-purple-400/60 rounded-2xl p-2.5 shadow-xl hover:shadow-purple-500/25 transition-all duration-300 backdrop-blur-md">
-              <img
-                src={item.image}
-                alt="Kỷ niệm"
-                className="w-full h-auto rounded-xl object-contain block transition-transform duration-300 group-hover:scale-[1.01]"
-                loading="lazy"
-              />
-            </div>
-          </motion.div>
-        ))}
+      {/* Main Traveling Stream Area with Left/Right Shadow Gradients */}
+      <div className="relative w-full my-auto py-2 overflow-hidden flex flex-col gap-2">
+        {/* Left & Right Soft Vignette Fades */}
+        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#070817] via-[#070817]/70 to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#070817] via-[#070817]/70 to-transparent z-20 pointer-events-none" />
+
+        {/* Row 1: Leftward Travel */}
+        <TravelRow
+          items={row1}
+          direction="left"
+          onCardClick={handleCardClick}
+          floatClass="animate-float-a"
+        />
+
+        {/* Row 2: Rightward Travel (Interlaced) */}
+        <TravelRow
+          items={row2}
+          direction="right"
+          onCardClick={handleCardClick}
+          floatClass="animate-float-b"
+        />
+
+        {/* Row 3: Leftward Travel (Slow) */}
+        <TravelRow
+          items={row3}
+          direction="left-slow"
+          onCardClick={handleCardClick}
+          floatClass="animate-float-a"
+        />
       </div>
 
       {/* Bottom Action */}
-      <div className="pt-10">
+      <div className="pt-3 z-20">
         <button
           onClick={handleNext}
-          className="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-lg glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+          className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-lg glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
         >
           <span>Khám phá Hành trình tình bạn</span>
           <ArrowRight className="w-4 h-4" />

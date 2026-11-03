@@ -139,3 +139,64 @@
 .animate-pulse-subtle {
   animation: pulse-subtle 3s ease-in-out infinite;
 }
+
+/* Infinite Travelling Streams (Dan xen) */
+@keyframes travel-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes travel-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-travel-left {
+  animation: travel-left 36s linear infinite;
+}
+
+.animate-travel-right {
+  animation: travel-right 36s linear infinite;
+}
+
+.animate-travel-left-slow {
+  animation: travel-left 42s linear infinite;
+}
+
+.pause-on-hover:hover {
+  animation-play-state: paused;
+}
+
+@keyframes float-subtle-a {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+@keyframes float-subtle-b {
+  0%, 100% {
+    transform: translateY(0px) rotate(1.5deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+.animate-float-a {
+  animation: float-subtle-a 5.5s ease-in-out infinite;
+}
+
+.animate-float-b {
+  animation: float-subtle-b 6.5s ease-in-out infinite;
+}
