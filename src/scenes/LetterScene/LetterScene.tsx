@@ -24,7 +24,6 @@ export function LetterScene() {
 
   const letterPaperRef = useRef<HTMLDivElement>(null);
 
-  const letterRead = useExperienceStore((state) => state.letterRead);
   const setLetterRead = useExperienceStore((state) => state.setLetterRead);
   const nextScene = useExperienceStore((state) => state.nextScene);
 
@@ -106,7 +105,7 @@ export function LetterScene() {
       {/* Main Content Area */}
       <div className="w-full max-w-2xl mx-auto my-auto z-20">
         <AnimatePresence mode="wait">
-          {!isOpen && !letterRead ? (
+          {!isOpen ? (
             /* REALISTIC 3D COSMIC POSTAL ENVELOPE WITH WAX SEAL */
             <motion.div
               key="envelope"

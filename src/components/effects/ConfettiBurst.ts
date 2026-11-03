@@ -78,3 +78,4 @@ export function triggerGiftSparkles() {
     scalar: 1.1,
   });
 }
+
