@@ -200,3 +200,18 @@
 .animate-float-b {
   animation: float-subtle-b 6.5s ease-in-out infinite;
 }
+
+/* Authentic Ruled Stationery Letter Paper */
+.stationery-ruled-paper {
+  background-color: #FAF8F2;
+  background-image:
+    url('/images/letter-bg-clean.jpg'),
+    radial-gradient(circle, rgba(120, 110, 95, 0.45) 1px, transparent 1px);
+  background-size: cover, 6px 38px;
+  background-position: center top, 0 34px;
+  background-repeat: no-repeat, repeat;
+}
+
+.stationery-line {
+  line-height: 38px;
+}

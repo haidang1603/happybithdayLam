@@ -81,43 +81,35 @@ export function LetterScene() {
               </div>
             </motion.div>
           ) : (
-            /* Unfolded Authentic Floral Stationery Letter */
+            /* Unfolded Authentic Ruled Stationery Letter with Text Inked on Lines */
             <motion.div
               key="letter-content"
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="relative rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-100/60 max-h-[76vh] flex flex-col"
+              className="relative rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200/70 max-h-[76vh] flex flex-col stationery-ruled-paper"
               style={{
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(250, 204, 21, 0.25)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.75), 0 0 45px rgba(250, 204, 21, 0.25)',
               }}
             >
-              {/* Background Floral Stationery Paper */}
-              <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
-                style={{
-                  backgroundImage: "url('/images/letter-paper.jpg')",
-                }}
-              />
-
-              {/* Scrollable Letter Content */}
-              <div className="relative z-10 overflow-y-auto px-6 sm:px-10 pt-16 sm:pt-20 pb-8 space-y-5 text-slate-900 select-text">
-                {/* Salutation Header */}
-                <div className="border-b border-amber-900/15 pb-2">
-                  <h3 className="font-handwriting text-3xl sm:text-4xl text-slate-900 font-bold tracking-wide">
+              {/* Scrollable Letter Content - Lines Strictly Synchronized */}
+              <div className="relative z-10 overflow-y-auto px-6 sm:px-10 pt-20 sm:pt-24 pb-8 text-slate-900 select-text">
+                {/* Salutation Line */}
+                <div className="mb-[38px]">
+                  <h3 className="font-handwriting text-3xl sm:text-4xl text-slate-900 font-bold tracking-wide leading-[38px]">
                     {birthdayConfig.letter.salutation}
                   </h3>
                 </div>
 
-                {/* Paragraphs in Warm Handwriting Font */}
-                <div className="space-y-4 font-handwriting text-xl sm:text-2xl text-slate-800 leading-relaxed sm:leading-loose">
+                {/* Paragraphs - Each Wrapped Line Perfectly Sitting on the Ruled Line */}
+                <div className="font-handwriting text-2xl sm:text-[25px] text-slate-800 tracking-wide">
                   {birthdayConfig.letter.paragraphs.map((p: string, idx: number) => (
                     <motion.p
                       key={idx}
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.12 }}
-                      className="tracking-wide"
+                      className="leading-[38px] mb-[38px]"
                     >
                       {p}
                     </motion.p>
@@ -125,12 +117,12 @@ export function LetterScene() {
                 </div>
 
                 {/* Signature & Date Footer */}
-                <div className="pt-4 border-t border-amber-900/20 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div className="space-y-0.5">
-                    <span className="text-xs uppercase font-mono tracking-wider text-slate-600 block">
+                    <span className="text-[11px] uppercase font-mono tracking-wider text-slate-600 block">
                       Người gửi:
                     </span>
-                    <p className="font-handwriting text-2xl sm:text-3xl text-purple-950 font-bold">
+                    <p className="font-handwriting text-3xl text-purple-950 font-bold leading-[38px]">
                       {birthdayConfig.senderName}
                     </p>
                     <p className="text-[11px] text-slate-600 font-mono">
@@ -138,7 +130,7 @@ export function LetterScene() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-xs text-rose-800 font-medium bg-white/50 px-3 py-1 rounded-full border border-rose-300/40 w-fit">
+                  <div className="flex items-center gap-1.5 text-xs text-rose-800 font-medium bg-white/70 px-3 py-1 rounded-full border border-rose-300/50 w-fit backdrop-blur-sm">
                     <Heart className="w-3.5 h-3.5 fill-current text-rose-600 animate-pulse" />
                     <span className="font-sans">Mãi là bạn tốt</span>
                   </div>
