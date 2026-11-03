@@ -203,15 +203,26 @@
 
 /* Authentic Ruled Stationery Letter Paper */
 .stationery-ruled-paper {
-  background-color: #FAF8F2;
-  background-image:
-    url('/images/letter-bg-clean.jpg'),
-    radial-gradient(circle, rgba(120, 110, 95, 0.45) 1px, transparent 1px);
-  background-size: cover, 6px 38px;
-  background-position: center top, 0 34px;
-  background-repeat: no-repeat, repeat;
+  background-color: #FAF8F5;
+  background-image: radial-gradient(circle, rgba(125, 110, 95, 0.42) 1.2px, transparent 1.2px);
+  background-size: 8px 38px;
+  background-position: 0 35px;
+  background-repeat: repeat;
 }
 
 .stationery-line {
   line-height: 38px;
+}
+
+/* 3D Envelope & Paper Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }
