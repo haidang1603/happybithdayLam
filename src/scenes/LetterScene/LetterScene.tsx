@@ -55,7 +55,7 @@ const LETTER_ROWS = [
   { text: 'Tuổi 20 thật rực rỡ và thành công nhé bạn của tôi!', align: 'left', isAccent: true }, // Line 24
   { text: '', align: 'left' }, // Line 25
   { text: 'Cốt của chú,', align: 'right' }, // Line 26
-  { text: 'Người lùn m5 ❤️', align: 'right', isSignature: true }, // Line 27
+  { text: `${birthdayConfig.senderName} ❤️`, align: 'right', isSignature: true }, // Line 27
   { text: 'Trái Đất — Ngày 02/12 đặc biệt của Lam', align: 'right', isNote: true }, // Line 28
 ];
 
@@ -302,39 +302,39 @@ export function LetterScene() {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center space-y-2 w-full"
             >
-              {/* Top Utility Toolbar */}
-              <div className="flex items-center justify-between gap-3 w-full max-w-[540px] px-2 z-30">
+              {/* Top Utility Toolbar - Compact Centered Bar */}
+              <div className="flex items-center justify-center gap-2 z-30 mb-0.5">
                 <button
                   onClick={handleFoldBack}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-purple-950/70 hover:bg-purple-900 text-purple-200 border border-purple-400/30 text-xs font-medium transition-all cursor-pointer backdrop-blur-sm active:scale-95 shadow-md"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/85 hover:bg-slate-800 text-slate-300 hover:text-white border border-white/15 text-xs font-medium transition-all cursor-pointer backdrop-blur-md active:scale-95 shadow-md"
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Gấp thư lại</span>
+                  <RotateCcw className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Gấp lại</span>
                 </button>
 
                 <button
                   onClick={handleDownloadLetter}
                   disabled={isExporting}
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-lg active:scale-95 ${
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer backdrop-blur-md active:scale-95 shadow-md ${
                     downloadSuccess 
                       ? 'bg-emerald-600 text-white border border-emerald-400' 
-                      : 'bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-slate-950 border border-amber-300/60'
+                      : 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 hover:border-amber-300/60'
                   }`}
                 >
                   {isExporting ? (
                     <>
-                      <Sparkles className="w-3.5 h-3.5 animate-spin" />
-                      <span>Đang lưu ảnh...</span>
+                      <Sparkles className="w-3.5 h-3.5 animate-spin text-amber-300" />
+                      <span>Đang lưu...</span>
                     </>
                   ) : downloadSuccess ? (
                     <>
                       <Check className="w-3.5 h-3.5" />
-                      <span>Đã lưu thư thành công!</span>
+                      <span>Đã lưu ảnh!</span>
                     </>
                   ) : (
                     <>
-                      <Download className="w-3.5 h-3.5" />
-                      <span>Lưu thư dạng ảnh</span>
+                      <Download className="w-3.5 h-3.5 text-amber-300" />
+                      <span>Lưu thư</span>
                     </>
                   )}
                 </button>
