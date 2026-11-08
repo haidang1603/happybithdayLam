@@ -65,6 +65,33 @@ export function LetterScene() {
   const [isExporting, setIsExporting] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
+  // 3D Tilt interaction (similar to VIP Friendship Pass)
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    setMousePos({ x, y });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length > 0) {
+      const touch = e.touches[0];
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, (touch.clientY - rect.top) / rect.height));
+      setMousePos({ x, y });
+      setIsHovered(true);
+    }
+  };
+
+  const tiltX = (isHovered && !isExporting) ? (mousePos.y - 0.5) * -12 : 0;
+  const tiltY = (isHovered && !isExporting) ? (mousePos.x - 0.5) * 12 : 0;
+  const glareX = mousePos.x * 100;
+  const glareY = mousePos.y * 100;
+
   // Auto-scale to ensure the entire letter fits inside viewport without any vertical scrolling
   const [scale, setScale] = useState<number>(() => {
     if (typeof window !== 'undefined') {
@@ -117,6 +144,7 @@ export function LetterScene() {
     if (!letterPaperRef.current) return;
     try {
       setIsExporting(true);
+      setIsHovered(false);
       audioManager.playButtonSfx();
 
       await new Promise((resolve) => setTimeout(resolve, 150));
@@ -356,19 +384,39 @@ export function LetterScene() {
                   }}
                   className="shrink-0"
                 >
-                  {/* The Vintage Stationery Paper Sheet */}
-                  <div
-                    ref={letterPaperRef}
-                    style={{
-                      width: `${LETTER_BASE_WIDTH}px`,
-                      height: `${LETTER_BASE_HEIGHT}px`,
-                      backgroundImage: `url('/images/vintage-letter-paper.jpg')`,
-                      backgroundSize: '100% 100%',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                    }}
-                    className="relative rounded-[20px] overflow-hidden select-text shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(217,119,6,0.2)] border border-amber-900/30"
+                  {/* 3D Perspective Wrapper - Interactive Tilt & Glare like VIP Pass */}
+                  <div 
+                    className="perspective-1000 w-full h-full cursor-grab active:cursor-grabbing"
+                    onMouseMove={handleMouseMove}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onTouchMove={handleTouchMove}
+                    onTouchStart={() => setIsHovered(true)}
+                    onTouchEnd={() => setIsHovered(false)}
                   >
+                    {/* The Vintage Stationery Paper Sheet */}
+                    <div
+                      ref={letterPaperRef}
+                      style={{
+                        width: `${LETTER_BASE_WIDTH}px`,
+                        height: `${LETTER_BASE_HEIGHT}px`,
+                        backgroundImage: `url('/images/vintage-letter-paper.jpg')`,
+                        backgroundSize: '100% 100%',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
+                        transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
+                      }}
+                      className="relative rounded-[20px] overflow-hidden select-text shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(217,119,6,0.25)] border border-amber-900/30"
+                    >
+                      {/* Dynamic Light Sheen Glare */}
+                      <div
+                        className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-20"
+                        style={{
+                          opacity: isHovered && !isExporting ? 0.28 : 0,
+                          background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.7) 0%, rgba(250, 204, 21, 0.2) 30%, transparent 65%)`,
+                        }}
+                      />
                     {/* The 28 Ruled Lines: Inked Text Resting Exactly on Line Baselines */}
                     {LETTER_ROWS.map((row, idx) => {
                       if (!row.text) return null;
@@ -423,6 +471,7 @@ export function LetterScene() {
                   </div>
                 </div>
               </div>
+            </div>
             </motion.div>
           )}
         </AnimatePresence>
