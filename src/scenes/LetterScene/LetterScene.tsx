@@ -68,11 +68,11 @@ export function LetterScene() {
   // Auto-scale to ensure the entire letter fits inside viewport without any vertical scrolling
   const [scale, setScale] = useState<number>(() => {
     if (typeof window !== 'undefined') {
-      const availH = Math.max(320, window.innerHeight - 170);
+      const availH = Math.max(280, window.innerHeight - 210);
       const availW = Math.min(LETTER_BASE_WIDTH, window.innerWidth - 32);
       return Math.min(1, availH / LETTER_BASE_HEIGHT, availW / LETTER_BASE_WIDTH);
     }
-    return 0.85;
+    return 0.8;
   });
 
   const letterPaperRef = useRef<HTMLDivElement>(null);
@@ -83,7 +83,7 @@ export function LetterScene() {
   useEffect(() => {
     const updateScale = () => {
       if (typeof window !== 'undefined') {
-        const availH = Math.max(320, window.innerHeight - 170);
+        const availH = Math.max(280, window.innerHeight - 210);
         const availW = Math.min(LETTER_BASE_WIDTH, window.innerWidth - 32);
         const newScale = Math.min(1, availH / LETTER_BASE_HEIGHT, availW / LETTER_BASE_WIDTH);
         setScale(newScale);
@@ -155,7 +155,7 @@ export function LetterScene() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between items-center px-4 pt-10 pb-16 z-10 select-none overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between items-center px-3 pt-4 sm:pt-6 pb-6 z-10 select-none overflow-hidden">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -300,10 +300,10 @@ export function LetterScene() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center space-y-2 w-full"
+              className="flex flex-col items-center w-full"
             >
               {/* Top Utility Toolbar - Compact Centered Bar */}
-              <div className="flex items-center justify-center gap-2 z-30 mb-0.5">
+              <div className="flex items-center justify-center gap-2.5 z-30 mb-3">
                 <button
                   onClick={handleFoldBack}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/85 hover:bg-slate-800 text-slate-300 hover:text-white border border-white/15 text-xs font-medium transition-all cursor-pointer backdrop-blur-md active:scale-95 shadow-md"
@@ -342,7 +342,7 @@ export function LetterScene() {
 
               {/* Responsive Scaling Wrapper: Zero scroll, 100% visible on screen */}
               <div 
-                className="w-full flex justify-center items-center overflow-visible"
+                className="w-full flex justify-center items-start overflow-visible"
                 style={{
                   height: `${LETTER_BASE_HEIGHT * scale}px`,
                 }}
