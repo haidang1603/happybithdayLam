@@ -1,9 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import { 
   Sparkles, 
-  Heart, 
   ArrowRight, 
   Download, 
   Check, 
@@ -16,23 +15,91 @@ import { useExperienceStore } from '@/stores/useExperienceStore';
 import { audioManager } from '@/utils/audioManager';
 import { birthdayConfig } from '@/config/birthday.config';
 
+// Exact proportional base dimensions of vintage-letter-paper.jpg (682 x 1024)
+const LETTER_BASE_WIDTH = 540;
+const LETTER_BASE_HEIGHT = 810;
+
+// Exact vertical positions (%) of the 28 ruled lines from top to bottom
+const LINE_PERCENTAGES = [
+  4.59, 8.11, 11.52, 14.84, 18.26, 21.58, 25.00, 28.32, 
+  31.74, 35.06, 38.48, 41.80, 45.21, 48.63, 51.95, 55.37, 
+  58.69, 62.11, 65.43, 68.85, 72.17, 75.59, 79.00, 82.32, 
+  85.74, 89.06, 92.48, 96.29
+];
+
+// Exact line-by-line distribution across the 28 ruled lines
+const LETTER_ROWS = [
+  { text: '', align: 'left' }, // Line 1
+  { text: 'Vũ Trụ, ngày 02 tháng 12 năm 2026', align: 'right', isDate: true }, // Line 2
+  { text: '', align: 'left' }, // Line 3
+  { text: 'Gửi Lam thân mến,', align: 'left', isSalutation: true }, // Line 4
+  { text: '', align: 'left' }, // Line 5
+  { text: 'Chúc mừng sinh nhật nhé! 🎉', align: 'left', isBold: true }, // Line 6
+  { text: 'Vậy là chú lại bước sang tuổi 20 rồi.', align: 'left' }, // Line 7
+  { text: 'Nhìn lại chặng đường vừa qua, anh cảm thấy thật may mắn', align: 'left' }, // Line 8
+  { text: 'khi luôn có sự đồng hành của một người bạn như chú.', align: 'left' }, // Line 9
+  { text: '', align: 'left' }, // Line 10
+  { text: 'Cảm ơn chú vì đã luôn là một người bạn lắng nghe kiên nhẫn,', align: 'left' }, // Line 11
+  { text: 'luôn mang lại năng lượng tích cực và những trận cười sảng khoái.', align: 'left' }, // Line 12
+  { text: 'Tình bạn của chúng mình không màu mè, không sến súa,', align: 'left' }, // Line 13
+  { text: 'nhưng lúc nào cũng chân thật và ấm áp.', align: 'left' }, // Line 14
+  { text: '', align: 'left' }, // Line 15
+  { text: 'Bước sang tuổi 20 thật đẹp, chúc Lam luôn mạnh khỏe,', align: 'left' }, // Line 16
+  { text: 'giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường', align: 'left' }, // Line 17
+  { text: 'để theo đuổi mọi ước mơ, mục tiêu mà chú đang ấp ủ.', align: 'left' }, // Line 18
+  { text: 'Mong rằng cuộc sống sẽ đối xử thật dịu dàng với chú!', align: 'left' }, // Line 19
+  { text: '', align: 'left' }, // Line 20
+  { text: 'Cho dù vũ trụ có bao la và cuộc sống có bận rộn đến đâu,', align: 'left' }, // Line 21
+  { text: 'hãy nhớ rằng chú luôn có một người bạn đồng hành ở đây.', align: 'left' }, // Line 22
+  { text: '', align: 'left' }, // Line 23
+  { text: 'Tuổi 20 thật rực rỡ và thành công nhé bạn của tôi!', align: 'left', isAccent: true }, // Line 24
+  { text: '', align: 'left' }, // Line 25
+  { text: 'Cốt của chú,', align: 'right' }, // Line 26
+  { text: 'Người lùn m5 ❤️', align: 'right', isSignature: true }, // Line 27
+  { text: 'Trái Đất — Ngày 02/12 đặc biệt của Lam', align: 'right', isNote: true }, // Line 28
+];
+
 export function LetterScene() {
   const [isOpen, setIsOpen] = useState(false);
   const [isUnsealing, setIsUnsealing] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
+  // Auto-scale to ensure the entire letter fits inside viewport without any vertical scrolling
+  const [scale, setScale] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const availH = Math.max(320, window.innerHeight - 170);
+      const availW = Math.min(LETTER_BASE_WIDTH, window.innerWidth - 32);
+      return Math.min(1, availH / LETTER_BASE_HEIGHT, availW / LETTER_BASE_WIDTH);
+    }
+    return 0.85;
+  });
+
   const letterPaperRef = useRef<HTMLDivElement>(null);
 
   const setLetterRead = useExperienceStore((state) => state.setLetterRead);
   const nextScene = useExperienceStore((state) => state.nextScene);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (typeof window !== 'undefined') {
+        const availH = Math.max(320, window.innerHeight - 170);
+        const availW = Math.min(LETTER_BASE_WIDTH, window.innerWidth - 32);
+        const newScale = Math.min(1, availH / LETTER_BASE_HEIGHT, availW / LETTER_BASE_WIDTH);
+        setScale(newScale);
+      }
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   const handleOpenEnvelope = () => {
     if (isUnsealing || isOpen) return;
     setIsUnsealing(true);
     audioManager.playGiftOpenSfx();
 
-    // Smooth unsealing transition: wax pops, flap flips, paper emerges
     setTimeout(() => {
       setIsOpen(true);
       setIsUnsealing(false);
@@ -57,7 +124,13 @@ export function LetterScene() {
       const dataUrl = await toPng(letterPaperRef.current, {
         cacheBust: true,
         pixelRatio: 2.5,
-        backgroundColor: '#FAF8F5',
+        backgroundColor: '#f5eedc',
+        width: LETTER_BASE_WIDTH,
+        height: LETTER_BASE_HEIGHT,
+        style: {
+          transform: 'none',
+          boxShadow: 'none',
+        },
       });
 
       const link = document.createElement('a');
@@ -82,28 +155,25 @@ export function LetterScene() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between items-center px-4 pt-12 pb-24 z-10 select-none">
+    <div className="relative min-h-screen flex flex-col justify-between items-center px-4 pt-10 pb-16 z-10 select-none overflow-hidden">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center max-w-xl mx-auto space-y-1.5 mb-4 z-20"
+        className="text-center max-w-xl mx-auto space-y-1 mb-2 z-20 shrink-0"
       >
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-400/30">
+        <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-400/30">
           <Feather className="w-3.5 h-3.5 text-pink-300" />
           TÂM THƯ TỪ TRÁI ĐẤT
         </span>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading tracking-tight bg-gradient-to-r from-pink-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-heading tracking-tight bg-gradient-to-r from-pink-300 via-purple-300 to-yellow-300 bg-clip-text text-transparent">
           {birthdayConfig.letter.title}
         </h2>
-        <p className="text-slate-300 text-xs">
-          {birthdayConfig.letter.subtitle}
-        </p>
       </motion.div>
 
       {/* Main Content Area */}
-      <div className="w-full max-w-2xl mx-auto my-auto z-20">
+      <div className="w-full flex-1 flex items-center justify-center my-auto z-20 overflow-visible">
         <AnimatePresence mode="wait">
           {!isOpen ? (
             /* REALISTIC 3D COSMIC POSTAL ENVELOPE WITH WAX SEAL */
@@ -224,19 +294,19 @@ export function LetterScene() {
               </div>
             </motion.div>
           ) : (
-            /* AUTHENTIC STATIONERY LETTER WITH INKED HANDWRITING & ACTIONS */
+            /* REDESIGNED VINTAGE STATIONERY LETTER — FITS 100% IN VIEWPORT WITHOUT SCROLLING */
             <motion.div
               key="letter-content"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full space-y-3"
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center space-y-2 w-full"
             >
               {/* Top Utility Toolbar */}
-              <div className="flex items-center justify-between gap-2 px-2">
+              <div className="flex items-center justify-between gap-3 w-full max-w-[540px] px-2 z-30">
                 <button
                   onClick={handleFoldBack}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-950/60 hover:bg-purple-900/80 text-purple-200 border border-purple-400/30 text-xs font-medium transition-all cursor-pointer backdrop-blur-sm active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-purple-950/70 hover:bg-purple-900 text-purple-200 border border-purple-400/30 text-xs font-medium transition-all cursor-pointer backdrop-blur-sm active:scale-95 shadow-md"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Gấp thư lại</span>
@@ -245,7 +315,7 @@ export function LetterScene() {
                 <button
                   onClick={handleDownloadLetter}
                   disabled={isExporting}
-                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-lg active:scale-95 ${
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-lg active:scale-95 ${
                     downloadSuccess 
                       ? 'bg-emerald-600 text-white border border-emerald-400' 
                       : 'bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-slate-950 border border-amber-300/60'
@@ -270,91 +340,86 @@ export function LetterScene() {
                 </button>
               </div>
 
-              {/* The Physical Stationery Paper Sheet */}
-              <div
-                ref={letterPaperRef}
-                className="relative rounded-3xl overflow-hidden border-2 border-amber-200/80 shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(251,191,36,0.25)] stationery-ruled-paper max-h-[74vh] overflow-y-auto"
+              {/* Responsive Scaling Wrapper: Zero scroll, 100% visible on screen */}
+              <div 
+                className="w-full flex justify-center items-center overflow-visible"
                 style={{
-                  backgroundColor: '#FAF8F5',
+                  height: `${LETTER_BASE_HEIGHT * scale}px`,
                 }}
               >
-                {/* Top-Right Floral Bouquet (Exact Watercolor Artwork) */}
-                <div className="absolute top-0 right-0 w-44 sm:w-60 md:w-72 pointer-events-none z-10 opacity-95">
-                  <img
-                    src="/images/letter-floral-corner.png"
-                    alt="Floral stationery bouquet"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
+                <div
+                  style={{
+                    width: `${LETTER_BASE_WIDTH}px`,
+                    height: `${LETTER_BASE_HEIGHT}px`,
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top center',
+                  }}
+                  className="shrink-0"
+                >
+                  {/* The Vintage Stationery Paper Sheet */}
+                  <div
+                    ref={letterPaperRef}
+                    style={{
+                      width: `${LETTER_BASE_WIDTH}px`,
+                      height: `${LETTER_BASE_HEIGHT}px`,
+                      backgroundImage: `url('/images/vintage-letter-paper.jpg')`,
+                      backgroundSize: '100% 100%',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                    }}
+                    className="relative rounded-[20px] overflow-hidden select-text shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(217,119,6,0.2)] border border-amber-900/30"
+                  >
+                    {/* The 28 Ruled Lines: Inked Text Resting Exactly on Line Baselines */}
+                    {LETTER_ROWS.map((row, idx) => {
+                      if (!row.text) return null;
+                      const lineTopPct = LINE_PERCENTAGES[idx];
 
-                {/* Bottom Watercolor Wash */}
-                <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none z-10 opacity-80">
-                  <img
-                    src="/images/letter-watercolor-bottom.png"
-                    alt="Watercolor wash"
-                    className="w-full h-full object-cover object-bottom"
-                  />
-                </div>
-
-                {/* Subtle Fold Crease Line (Tactile physical paper look) */}
-                <div className="absolute top-1/3 left-0 right-0 h-[1px] bg-slate-400/10 pointer-events-none shadow-[0_1px_2px_rgba(0,0,0,0.04)]" />
-                <div className="absolute top-2/3 left-0 right-0 h-[1px] bg-slate-400/10 pointer-events-none shadow-[0_1px_2px_rgba(0,0,0,0.04)]" />
-
-                {/* Letter Content - Lines Strictly Synchronized to 38px Grid */}
-                <div className="relative z-20 px-6 sm:px-12 pt-16 sm:pt-20 pb-12 text-slate-900 select-text">
-                  {/* Letter Header */}
-                  <div className="flex items-start justify-between mb-[38px]">
-                    <div className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-mono uppercase tracking-widest text-slate-500 border-b border-slate-300/60 pb-0.5">
-                      <Feather className="w-3.5 h-3.5 text-purple-700" />
-                      <span>FIRST CLASS AIRMAIL • 02/12/2006</span>
-                    </div>
-
-                    <div className="font-handwriting text-xl sm:text-2xl text-slate-700 text-right">
-                      Vũ Trụ, 02 tháng 12
-                    </div>
-                  </div>
-
-                  {/* Salutation Line */}
-                  <div className="mb-[38px]">
-                    <h3 className="font-handwriting text-3xl sm:text-4xl text-slate-900 font-bold tracking-wide leading-[38px]">
-                      {birthdayConfig.letter.salutation}
-                    </h3>
-                  </div>
-
-                  {/* Paragraphs - Each Wrapped Line Perfectly Resting On Ruled Dotted Line */}
-                  <div className="font-handwriting text-2xl sm:text-[25px] text-slate-800 tracking-wide font-medium">
-                    {birthdayConfig.letter.paragraphs.map((p: string, idx: number) => (
-                      <motion.p
-                        key={idx}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="leading-[38px] mb-[38px] indent-6 text-justify"
-                      >
-                        {p}
-                      </motion.p>
-                    ))}
-                  </div>
-
-                  {/* Closing & Signature Block */}
-                  <div className="pt-2 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                    <div className="space-y-0.5">
-                      <span className="font-handwriting text-2xl text-slate-700 block leading-[38px]">
-                        {birthdayConfig.letter.signature}
-                      </span>
-                      <p className="font-handwriting text-4xl text-purple-950 font-black leading-[38px] tracking-wide flex items-center gap-2">
-                        <span>{birthdayConfig.senderName}</span>
-                        <Heart className="w-5 h-5 fill-rose-600 text-rose-600 inline-block" />
-                      </p>
-                      <p className="text-[11px] text-slate-600 font-mono pt-1">
-                        {birthdayConfig.letter.footerNote}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs text-rose-900 font-medium bg-amber-100/80 px-4 py-1.5 rounded-full border border-rose-300/60 w-fit backdrop-blur-sm shadow-sm">
-                      <Heart className="w-4 h-4 fill-rose-600 text-rose-600 animate-pulse" />
-                      <span className="font-sans font-semibold">Tình bạn diệu kỳ tuổi 20</span>
-                    </div>
+                      return (
+                        <div
+                          key={idx}
+                          style={{
+                            position: 'absolute',
+                            left: '8.4%',
+                            right: '8.4%',
+                            top: `${lineTopPct}%`,
+                            transform: 'translateY(-86%)',
+                          }}
+                          className={`font-handwriting leading-none select-text ${
+                            row.align === 'right' ? 'text-right' : 'text-left'
+                          }`}
+                        >
+                          {row.isDate ? (
+                            <span className="text-[17px] text-stone-700 italic font-semibold tracking-wide">
+                              {row.text}
+                            </span>
+                          ) : row.isSalutation ? (
+                            <span className="text-[23px] text-[#211a14] font-black tracking-wide">
+                              {row.text}
+                            </span>
+                          ) : row.isBold ? (
+                            <span className="text-[20px] text-[#1c1917] font-bold tracking-wide">
+                              {row.text}
+                            </span>
+                          ) : row.isAccent ? (
+                            <span className="text-[20px] text-purple-950 font-black tracking-wide">
+                              {row.text}
+                            </span>
+                          ) : row.isSignature ? (
+                            <span className="text-[23px] text-[#2c1810] font-black tracking-wide">
+                              {row.text}
+                            </span>
+                          ) : row.isNote ? (
+                            <span className="text-[12px] font-mono text-stone-600 tracking-wider">
+                              {row.text}
+                            </span>
+                          ) : (
+                            <span className="text-[19px] text-[#221c16] font-semibold tracking-wide">
+                              {row.text}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -364,10 +429,10 @@ export function LetterScene() {
       </div>
 
       {/* Bottom Action: Proceed to Grand Finale */}
-      <div className="pt-4 z-20">
+      <div className="pt-2 z-20 shrink-0">
         <button
           onClick={handleNext}
-          className="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-xl glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+          className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-xl glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
         >
           <span>Màn pháo hoa chúc mừng đặc biệt</span>
           <ArrowRight className="w-4 h-4" />
