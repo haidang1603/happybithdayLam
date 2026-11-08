@@ -54,9 +54,9 @@ const LETTER_ROWS = [
   { text: '', align: 'left' }, // Line 23
   { text: 'Tuổi 20 thật rực rỡ và thành công nhé bạn của tôi!', align: 'left', isAccent: true }, // Line 24
   { text: '', align: 'left' }, // Line 25
-  { text: 'Cốt của chú,', align: 'right' }, // Line 26
-  { text: `${birthdayConfig.senderName} ❤️`, align: 'right', isSignature: true }, // Line 27
-  { text: 'Trái Đất — Ngày 02/12 đặc biệt của Lam', align: 'right', isNote: true }, // Line 28
+  { text: 'Cốt của chú,', align: 'center' }, // Line 26
+  { text: `${birthdayConfig.senderName} ❤️`, align: 'center', isSignature: true }, // Line 27
+  { text: 'Trái Đất — Ngày 02/12 đặc biệt của Lam', align: 'center', isNote: true }, // Line 28
 ];
 
 export function LetterScene() {
@@ -385,7 +385,7 @@ export function LetterScene() {
                             transform: 'translateY(-86%)',
                           }}
                           className={`font-handwriting leading-none select-text ${
-                            row.align === 'right' ? 'text-right' : 'text-left'
+                            row.align === 'center' ? 'text-center' : row.align === 'right' ? 'text-right' : 'text-left'
                           }`}
                         >
                           {row.isDate ? (
