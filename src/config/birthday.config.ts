@@ -252,14 +252,6 @@ export const birthdayConfig: BirthdayConfig = {
       tag: "Best shot",
     },
     {
-      id: "memory-018",
-      image: "/images/memories/my_lam_finale.jpg",
-      title: "Mỹ Lam tuổi 20 rạng rỡ",
-      description: "Bức ảnh tuyệt đẹp ghi lại khoảnh khắc trong trẻo, dịu dàng và đầy sức hút của cô bạn thân Mỹ Lam.",
-      date: "02 Tháng 12, 2026",
-      tag: "Best Memory ✨",
-    },
-    {
       id: "memory-019",
       image: "/images/memories/20230111_171546.jpg",
       title: "Nụ cười ngày ấy",
@@ -346,6 +338,14 @@ export const birthdayConfig: BirthdayConfig = {
       description: "Mỗi bức ảnh là một mảnh ghép tuyệt đẹp tạo nên bức tranh thanh xuân đáng nhớ.",
       date: "Tháng 10, 2026",
       tag: "Trân quý",
+    },
+    {
+      id: "memory-030",
+      image: "/images/memories/my_lam_finale.jpg",
+      title: "Mỹ Lam tuổi 20 rạng rỡ",
+      description: "Bức ảnh tuyệt đẹp ghi lại khoảnh khắc trong trẻo, dịu dàng và đầy sức hút của cô bạn thân Mỹ Lam.",
+      date: "02 Tháng 12, 2026",
+      tag: "Best Memory ✨",
     },
   ],
 
