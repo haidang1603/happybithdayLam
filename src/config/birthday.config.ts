@@ -417,7 +417,7 @@ export const birthdayConfig: BirthdayConfig = {
   letter: {
     title: "LÁ THƯ TỪ TRẠM VŨ TRỤ",
     subtitle: "Những dòng tâm sự chân thành gửi tới người bạn tuyệt vời",
-    salutation: "Gửi Lam thân mến,",
+    salutation: "Gửi Lam thân mến!",
     paragraphs: [
       "Chúc mừng sinh nhật nhé!",
       "Vậy là chú lại bước sang tuổi 20 rồi. Nhìn lại chặng đường vừa qua, anh cảm thấy thật may mắn khi trên hành trình ấy luôn có sự đồng hành của một người bạn như chú.",

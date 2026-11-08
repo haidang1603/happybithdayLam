@@ -32,7 +32,7 @@ const LETTER_ROWS = [
   { text: '', align: 'left' }, // Line 1
   { text: 'Vũ Trụ, ngày 02 tháng 12 năm 2026', align: 'right', isDate: true }, // Line 2
   { text: '', align: 'left' }, // Line 3
-  { text: 'Gửi Lam thân mến,', align: 'left', isSalutation: true }, // Line 4
+  { text: 'Gửi Lam thân mến!', align: 'left', isSalutation: true }, // Line 4
   { text: '', align: 'left' }, // Line 5
   { text: 'Chúc mừng sinh nhật nhé! 🎉', align: 'left', isBold: true }, // Line 6
   { text: 'Vậy là chú lại bước sang tuổi 20 rồi.', align: 'left' }, // Line 7
@@ -380,7 +380,7 @@ export function LetterScene() {
                           style={{
                             position: 'absolute',
                             left: '8.4%',
-                            right: '8.4%',
+                            right: row.isDate ? '14%' : '8.4%',
                             top: `${lineTopPct}%`,
                             transform: 'translateY(-86%)',
                           }}
