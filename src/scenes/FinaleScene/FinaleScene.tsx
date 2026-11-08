@@ -48,13 +48,36 @@ export function FinaleScene() {
         transition={{ duration: 1.0, ease: 'easeOut' }}
         className="max-w-2xl mx-auto my-auto glass-panel-glow p-6 sm:p-10 rounded-3xl border-yellow-400/40 shadow-2xl space-y-5"
       >
-        {/* Featured Portrait */}
-        <div className="w-28 h-28 sm:w-36 sm:h-36 mx-auto rounded-full p-1 bg-gradient-to-tr from-yellow-400 via-pink-500 to-cyan-400 shadow-2xl glow-gold">
-          <img
-            src="/images/memories/my_lam_finale.jpg"
-            alt={birthdayConfig.recipientName}
-            className="w-full h-full object-cover rounded-full"
-          />
+        {/* Featured Portrait with orbiting sparkling stardust */}
+        <div className="relative w-28 h-28 sm:w-36 sm:h-36 mx-auto">
+          <div className="w-full h-full rounded-full p-1 bg-gradient-to-tr from-yellow-400 via-pink-500 to-cyan-400 shadow-2xl glow-gold">
+            <img
+              src="/images/memories/my_lam_finale.jpg"
+              alt={birthdayConfig.recipientName}
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+
+          {/* Tiny glowing stardust around the portrait */}
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={`orbit-dust-${i}`}
+              className="absolute rounded-full pointer-events-none animate-pulse"
+              style={{
+                width: i % 2 === 0 ? '3.5px' : '2px',
+                height: i % 2 === 0 ? '3.5px' : '2px',
+                left: `${50 + 58 * Math.cos((i * Math.PI) / 4)}%`,
+                top: `${50 + 58 * Math.sin((i * Math.PI) / 4)}%`,
+                transform: 'translate(-50%, -50%)',
+                backgroundColor: i % 3 === 0 ? '#fde047' : i % 2 === 0 ? '#67e8f9' : '#f472b6',
+                boxShadow: i % 3 === 0 
+                  ? '0 0 6px #fde047, 0 0 10px rgba(253,224,71,0.8)' 
+                  : '0 0 6px #67e8f9, 0 0 10px rgba(103,232,249,0.8)',
+                animationDuration: `${1.5 + (i % 3) * 0.5}s`,
+                animationDelay: `${i * 0.25}s`,
+              }}
+            />
+          ))}
         </div>
 
         <p className="text-sm sm:text-base text-yellow-200 font-light italic leading-relaxed">

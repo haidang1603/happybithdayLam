@@ -275,6 +275,94 @@ export function GalaxyBackground() {
           emissiveIntensity={0.4}
         />
       </mesh>
+
+      {/* Ambient Floating Stardust: Tiny glowing particles drifting in foreground and midground */}
+      <FloatingStardust texture={starTexture} isLowPerformance={isLowPerformance} />
     </group>
+  );
+}
+
+// Ambient Floating Stardust: Tiny glowing particles drifting in foreground and midground
+function FloatingStardust({ texture, isLowPerformance }: { texture: THREE.Texture; isLowPerformance: boolean }) {
+  const pointsRef = useRef<THREE.Points>(null!);
+  const count = isLowPerformance ? 220 : 500;
+
+  const [positions, colors, velocities] = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    const col = new Float32Array(count * 3);
+    const vel = new Float32Array(count * 3);
+
+    const palette = [
+      new THREE.Color('#FDE047'), // Warm sparkling gold
+      new THREE.Color('#FFFFFF'), // Pure diamond starlight
+      new THREE.Color('#67E8F9'), // Celestial cyan
+      new THREE.Color('#F472B6'), // Magical fairy pink
+      new THREE.Color('#C084FC'), // Soft nebula violet
+      new THREE.Color('#FEF08A'), // Light golden stardust
+    ];
+
+    for (let i = 0; i < count; i++) {
+      const i3 = i * 3;
+      pos[i3] = (Math.random() - 0.5) * 26; // X
+      pos[i3 + 1] = (Math.random() - 0.5) * 20; // Y
+      pos[i3 + 2] = (Math.random() - 0.5) * 16 + 4; // Z: -4 to +12 (in front of background!)
+
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      col[i3] = c.r;
+      col[i3 + 1] = c.g;
+      col[i3 + 2] = c.b;
+
+      vel[i3] = Math.random() * 0.28 + 0.12; // speedY
+      vel[i3 + 1] = Math.random() * Math.PI * 2; // phase
+      vel[i3 + 2] = Math.random() * 0.5 + 0.25; // sway amp
+    }
+
+    return [pos, col, vel];
+  }, [count]);
+
+  useFrame((state, delta) => {
+    if (!pointsRef.current) return;
+    const posAttr = pointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
+    const array = posAttr.array as Float32Array;
+    const t = state.clock.elapsedTime;
+
+    for (let i = 0; i < count; i++) {
+      const i3 = i * 3;
+      const speedY = velocities[i3];
+      const phase = velocities[i3 + 1];
+      const amp = velocities[i3 + 2];
+
+      // Gentle upward drift
+      array[i3 + 1] += delta * speedY;
+      // Soft horizontal sway
+      array[i3] += Math.sin(t * 1.2 + phase) * delta * amp * 0.4;
+
+      // Wrap when floating out of camera view
+      if (array[i3 + 1] > 11) {
+        array[i3 + 1] = -11;
+        array[i3] = (Math.random() - 0.5) * 26;
+      }
+    }
+
+    posAttr.needsUpdate = true;
+  });
+
+  return (
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        map={texture}
+        size={0.16}
+        vertexColors
+        transparent
+        opacity={0.92}
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+        sizeAttenuation={true}
+      />
+    </points>
   );
 }

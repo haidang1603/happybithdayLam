@@ -417,6 +417,28 @@ export function LetterScene() {
                           background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.7) 0%, rgba(250, 204, 21, 0.2) 30%, transparent 65%)`,
                         }}
                       />
+
+                      {/* Ambient Tiny Glowing Stardust Particles */}
+                      {[...Array(12)].map((_, i) => (
+                        <div
+                          key={`stardust-${i}`}
+                          className="absolute rounded-full pointer-events-none z-30 animate-pulse"
+                          style={{
+                            width: i % 3 === 0 ? '4px' : i % 2 === 0 ? '3px' : '2px',
+                            height: i % 3 === 0 ? '4px' : i % 2 === 0 ? '3px' : '2px',
+                            left: `${(i * 19 + 7) % 92}%`,
+                            top: `${(i * 27 + 11) % 92}%`,
+                            backgroundColor: i % 3 === 0 ? '#fde047' : i % 2 === 0 ? '#f472b6' : '#67e8f9',
+                            boxShadow: i % 3 === 0 
+                              ? '0 0 6px #fde047, 0 0 12px rgba(253,224,71,0.6)' 
+                              : i % 2 === 0 
+                              ? '0 0 6px #f472b6, 0 0 12px rgba(244,114,182,0.6)'
+                              : '0 0 6px #67e8f9, 0 0 12px rgba(103,232,249,0.6)',
+                            animationDuration: `${1.8 + (i % 4) * 0.6}s`,
+                            animationDelay: `${(i % 5) * 0.3}s`,
+                          }}
+                        />
+                      ))}
                     {/* The 28 Ruled Lines: Inked Text Resting Exactly on Line Baselines */}
                     {LETTER_ROWS.map((row, idx) => {
                       if (!row.text) return null;
