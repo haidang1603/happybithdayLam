@@ -39,20 +39,20 @@ const LETTER_ROWS = [
   { text: 'Nhìn lại chặng đường vừa qua, anh cảm thấy thật may mắn', align: 'left' }, // Line 8
   { text: 'khi luôn có sự đồng hành của một người bạn như chú.', align: 'left' }, // Line 9
   { text: '', align: 'left' }, // Line 10
-  { text: 'Cảm ơn chú vì đã luôn là một người bạn lắng nghe kiên nhẫn,', align: 'left' }, // Line 11
-  { text: 'luôn mang lại năng lượng tích cực và những trận cười sảng khoái.', align: 'left' }, // Line 12
-  { text: 'Tình bạn của chúng mình không màu mè, không sến súa,', align: 'left' }, // Line 13
-  { text: 'nhưng lúc nào cũng chân thật và ấm áp.', align: 'left' }, // Line 14
-  { text: '', align: 'left' }, // Line 15
-  { text: 'Bước sang tuổi 20 thật đẹp, chúc Lam luôn mạnh khỏe,', align: 'left' }, // Line 16
-  { text: 'giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường', align: 'left' }, // Line 17
-  { text: 'để theo đuổi mọi ước mơ, mục tiêu mà chú đang ấp ủ.', align: 'left' }, // Line 18
-  { text: 'Mong rằng cuộc sống sẽ đối xử thật dịu dàng với chú!', align: 'left' }, // Line 19
-  { text: '', align: 'left' }, // Line 20
-  { text: 'Cho dù vũ trụ có bao la và cuộc sống có bận rộn đến đâu,', align: 'left' }, // Line 21
-  { text: 'hãy nhớ rằng chú luôn có một người bạn đồng hành ở đây.', align: 'left' }, // Line 22
-  { text: '', align: 'left' }, // Line 23
-  { text: 'Tuổi 20 thật rực rỡ và thành công nhé bạn của tôi!', align: 'left', isAccent: true }, // Line 24
+  { text: 'Cảm ơn chú vì đã luôn là một người bạn biết lắng nghe,', align: 'left' }, // Line 11
+  { text: 'luôn mang lại nguồn năng lượng tích cực cho mọi người,', align: 'left' }, // Line 12
+  { text: 'và những trận cười thật thoải mái, sảng khoái.', align: 'left' }, // Line 13
+  { text: 'Tình bạn của chúng mình không màu mè, không sến súa,', align: 'left' }, // Line 14
+  { text: 'nhưng lúc nào cũng chân thật và ấm áp.', align: 'left' }, // Line 15
+  { text: '', align: 'left' }, // Line 16
+  { text: 'Bước sang tuổi 20 thật đẹp, chúc Lam luôn mạnh khỏe,', align: 'left' }, // Line 17
+  { text: 'giữ vững nụ cười rạng rỡ và bản lĩnh kiên cường', align: 'left' }, // Line 18
+  { text: 'để theo đuổi mọi ước mơ, mục tiêu mà chú đang ấp ủ.', align: 'left' }, // Line 19
+  { text: 'Mong rằng cuộc sống sẽ đối xử thật dịu dàng với chú!', align: 'left' }, // Line 20
+  { text: '', align: 'left' }, // Line 21
+  { text: 'Cho dù vũ trụ có bao la và cuộc sống có bận rộn,', align: 'left' }, // Line 22
+  { text: 'hãy nhớ rằng chú luôn có người bạn đồng hành ở đây.', align: 'left' }, // Line 23
+  { text: 'Tuổi 20 thật rực rỡ và thành công nhé bạn của tôi! ✨', align: 'left', isAccent: true }, // Line 24
   { text: '', align: 'left' }, // Line 25
   { text: 'Cốt của chú,', align: 'center' }, // Line 26
   { text: `${birthdayConfig.senderName} ❤️`, align: 'center', isSignature: true }, // Line 27
@@ -384,28 +384,28 @@ export function LetterScene() {
                             top: `${lineTopPct}%`,
                             transform: 'translateY(-86%)',
                           }}
-                          className={`font-handwriting leading-none select-text ${
+                          className={`font-handwriting leading-none select-text whitespace-nowrap overflow-visible ${
                             row.align === 'center' ? 'text-center' : row.align === 'right' ? 'text-right' : 'text-left'
                           }`}
                         >
                           {row.isDate ? (
-                            <span className="text-[17px] text-stone-700 italic font-semibold tracking-wide">
+                            <span className="text-[16px] text-stone-700 italic font-semibold">
                               {row.text}
                             </span>
                           ) : row.isSalutation ? (
-                            <span className="text-[23px] text-[#211a14] font-black tracking-wide">
+                            <span className="text-[22px] text-[#211a14] font-black tracking-wide">
                               {row.text}
                             </span>
                           ) : row.isBold ? (
-                            <span className="text-[20px] text-[#1c1917] font-bold tracking-wide">
+                            <span className="text-[18.5px] text-[#1c1917] font-bold">
                               {row.text}
                             </span>
                           ) : row.isAccent ? (
-                            <span className="text-[20px] text-purple-950 font-black tracking-wide">
+                            <span className="text-[18.5px] text-purple-950 font-black">
                               {row.text}
                             </span>
                           ) : row.isSignature ? (
-                            <span className="text-[23px] text-[#2c1810] font-black tracking-wide">
+                            <span className="text-[22px] text-[#2c1810] font-black tracking-wide">
                               {row.text}
                             </span>
                           ) : row.isNote ? (
@@ -413,7 +413,7 @@ export function LetterScene() {
                               {row.text}
                             </span>
                           ) : (
-                            <span className="text-[19px] text-[#221c16] font-semibold tracking-wide">
+                            <span className="text-[17.5px] text-[#221c16] font-semibold">
                               {row.text}
                             </span>
                           )}
