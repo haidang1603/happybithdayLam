@@ -168,9 +168,9 @@ export function FriendshipPassCard({ onContinue }: FriendshipPassCardProps) {
                 transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
                 transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
                 background: 'radial-gradient(circle at 85% 15%, rgba(217, 119, 6, 0.22) 0%, transparent 45%), radial-gradient(circle at 15% 85%, rgba(147, 51, 234, 0.25) 0%, transparent 45%), linear-gradient(135deg, #0e1122 0%, #060814 100%)',
-                boxShadow: isExporting ? 'none' : '0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 35px rgba(250, 204, 21, 0.3)',
+                boxShadow: isExporting ? 'none' : '0 0 35px rgba(250, 204, 21, 0.35), 0 25px 50px -12px rgba(0, 0, 0, 0.9)',
               }}
-              className="relative overflow-hidden rounded-[26px] p-6 border-2 border-amber-300/80 select-none shadow-2xl flex flex-col justify-between box-border"
+              className="relative overflow-hidden rounded-[26px] p-6 border border-amber-300/70 select-none shadow-2xl flex flex-col justify-between box-border"
             >
               {/* Dynamic Light Sheen Glare */}
               <div

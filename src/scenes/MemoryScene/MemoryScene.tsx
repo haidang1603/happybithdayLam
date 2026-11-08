@@ -37,12 +37,12 @@ function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps
               animationDelay: `${(idx % 5) * 0.4}s`,
             }}
           >
-            {/* Zero-gravity Floating Frame: Preserves natural aspect ratio without 1:1 squish */}
-            <div className="bg-slate-900/80 border border-white/20 group-hover:border-purple-400/80 rounded-2xl p-2 shadow-2xl backdrop-blur-md group-hover:shadow-purple-500/30 transition-all duration-300">
+            {/* Zero-gravity Floating Frame: Slender crystal frame with delicate ambient glow */}
+            <div className="relative rounded-2xl p-1 bg-gradient-to-b from-white/35 via-purple-300/25 to-pink-300/30 shadow-[0_0_18px_rgba(216,180,254,0.32),0_4px_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_28px_rgba(232,121,249,0.7),0_6px_25px_rgba(0,0,0,0.7)] group-hover:from-pink-300/70 group-hover:to-purple-300/70 transition-all duration-300 backdrop-blur-md">
               <img
                 src={item.image}
                 alt="Kỷ niệm"
-                className="h-32 sm:h-40 md:h-44 w-auto max-w-[280px] sm:max-w-[340px] rounded-xl object-contain block pointer-events-none"
+                className="h-32 sm:h-40 md:h-44 w-auto max-w-[280px] sm:max-w-[340px] rounded-[14px] object-contain block pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
                 draggable={false}
               />

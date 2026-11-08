@@ -93,10 +93,10 @@ export function MemoryLightbox() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 15 }}
           transition={{ duration: 0.3 }}
-          className="max-w-3xl w-full max-h-[90vh] bg-slate-900/95 border border-purple-500/30 rounded-3xl overflow-hidden shadow-2xl glass-panel-glow flex flex-col p-3"
+          className="max-w-3xl w-full max-h-[90vh] bg-slate-900/90 border border-purple-400/40 rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(192,132,252,0.35),0_25px_60px_rgba(0,0,0,0.9)] backdrop-blur-xl flex flex-col p-2.5 sm:p-3"
         >
           {/* Image Display - Natural Fit */}
-          <div className="relative w-full flex-1 min-h-0 bg-black/40 rounded-2xl overflow-hidden flex items-center justify-center p-2">
+          <div className="relative w-full flex-1 min-h-0 bg-black/50 border border-white/10 rounded-2xl overflow-hidden flex items-center justify-center p-2 shadow-inner">
             <img
               src={currentMemory.image}
               alt="Kỷ niệm"
