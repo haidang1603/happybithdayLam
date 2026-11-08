@@ -171,6 +171,10 @@
   animation: travel-left 42s linear infinite;
 }
 
+.animate-travel-right-slow {
+  animation: travel-right 44s linear infinite;
+}
+
 .pause-on-hover:hover {
   animation-play-state: paused;
 }
