@@ -295,8 +295,8 @@ export function FriendshipPassCard({ onContinue }: FriendshipPassCardProps) {
                       <PhoneCall className="w-3.5 h-3.5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <span className="font-bold text-cyan-200 block text-[11px] truncate">Tài Xế &amp; Tổng Đài 24/7</span>
-                      <span className="text-[9.5px] text-slate-300 leading-tight block truncate">Xe đưa đón kiêm tâm sự 0đ cước</span>
+                      <span className="font-bold text-cyan-200 block text-[11px] truncate">Tổng Đài Tâm Sự 24/7</span>
+                      <span className="text-[9.5px] text-slate-300 leading-tight block truncate">Lắng nghe &amp; chia sẻ 0đ cước phí</span>
                     </div>
                   </div>
 

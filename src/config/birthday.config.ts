@@ -320,7 +320,7 @@ export const birthdayConfig: BirthdayConfig = {
     rewardDetails: [
       "01 Vé bao trọn gói 1 bữa lẩu/nướng full topping bất cứ lúc nào chú thèm.",
       "01 Phiếu miễn trừ cằn nhằn trong 365 ngày tiếp theo (áp dụng mọi hoàn cảnh).",
-      "Dịch vụ tài xế kiêm tổng đài tâm sự 24/7 không tính cước khi chú cần chia sẻ.",
+      "Tổng đài tâm sự 24/7 không tính cước bất cứ khi nào chú cần chia sẻ.",
       "Và vô vàn năng lượng tích cực, may mắn gửi thẳng tới quỹ đạo của chú!",
     ],
     ps: "*Lưu ý: Thẻ quà tặng có giá trị sử dụng vô thời hạn và không thể quy đổi ra tiền mặt nhưng có thể quy đổi ra niềm vui không giới hạn!",
