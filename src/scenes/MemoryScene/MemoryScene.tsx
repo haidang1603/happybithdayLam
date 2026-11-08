@@ -7,7 +7,7 @@ import { audioManager } from '@/utils/audioManager';
 
 interface TravelRowProps {
   items: MemoryItem[];
-  direction: 'left' | 'right' | 'left-slow' | 'right-slow';
+  direction: 'left' | 'right' | 'left-slow';
   onCardClick: (id: string) => void;
   floatClass: string;
 }
@@ -21,13 +21,11 @@ function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps
       ? 'animate-travel-left'
       : direction === 'right'
       ? 'animate-travel-right'
-      : direction === 'left-slow'
-      ? 'animate-travel-left-slow'
-      : 'animate-travel-right-slow';
+      : 'animate-travel-left-slow';
 
   return (
-    <div className="relative w-full overflow-hidden py-1">
-      <div className={`flex items-center gap-3 sm:gap-5 w-max pause-on-hover ${animClass}`}>
+    <div className="relative w-full overflow-hidden py-1.5">
+      <div className={`flex items-center gap-4 sm:gap-6 w-max pause-on-hover ${animClass}`}>
         {duplicatedItems.map((item, idx) => (
           <div
             key={`${item.id}-${idx}`}
@@ -44,7 +42,7 @@ function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps
               <img
                 src={item.image}
                 alt="Kỷ niệm"
-                className="h-24 sm:h-28 md:h-32 w-auto max-w-[220px] sm:max-w-[280px] rounded-[13px] object-contain block pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]"
+                className="h-32 sm:h-38 md:h-42 w-auto max-w-[260px] sm:max-w-[320px] rounded-[14px] object-contain block pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
                 draggable={false}
               />
@@ -62,21 +60,19 @@ export function MemoryScene() {
 
   const memories = birthdayConfig.memories;
 
-  // Split memories into 4 alternating rows
-  const { row1, row2, row3, row4 } = useMemo(() => {
+  // Split memories into 3 alternating rows
+  const { row1, row2, row3 } = useMemo(() => {
     const r1: MemoryItem[] = [];
     const r2: MemoryItem[] = [];
     const r3: MemoryItem[] = [];
-    const r4: MemoryItem[] = [];
 
     memories.forEach((mem, idx) => {
-      if (idx % 4 === 0) r1.push(mem);
-      else if (idx % 4 === 1) r2.push(mem);
-      else if (idx % 4 === 2) r3.push(mem);
-      else r4.push(mem);
+      if (idx % 3 === 0) r1.push(mem);
+      else if (idx % 3 === 1) r2.push(mem);
+      else r3.push(mem);
     });
 
-    return { row1: r1, row2: r2, row3: r3, row4: r4 };
+    return { row1: r1, row2: r2, row3: r3 };
   }, [memories]);
 
   const handleCardClick = (id: string) => {
@@ -90,7 +86,7 @@ export function MemoryScene() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between items-center pt-12 pb-20 z-10 select-none overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between items-center pt-14 pb-22 z-10 select-none overflow-hidden">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -111,7 +107,7 @@ export function MemoryScene() {
       </motion.div>
 
       {/* Main Traveling Stream Area with Left/Right Shadow Gradients */}
-      <div className="relative w-full my-auto py-1 overflow-hidden flex flex-col gap-1.5 sm:gap-2">
+      <div className="relative w-full my-auto py-2 overflow-hidden flex flex-col gap-2 sm:gap-2.5">
         {/* Left & Right Soft Vignette Fades */}
         <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#070817] via-[#070817]/70 to-transparent z-20 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#070817] via-[#070817]/70 to-transparent z-20 pointer-events-none" />
@@ -138,14 +134,6 @@ export function MemoryScene() {
           direction="left-slow"
           onCardClick={handleCardClick}
           floatClass="animate-float-a"
-        />
-
-        {/* Row 4: Rightward Travel (Slow Interlaced) */}
-        <TravelRow
-          items={row4}
-          direction="right-slow"
-          onCardClick={handleCardClick}
-          floatClass="animate-float-b"
         />
       </div>
 
