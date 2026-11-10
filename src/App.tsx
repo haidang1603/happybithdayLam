@@ -12,6 +12,7 @@ import { GalaxyPortalScene } from '@/scenes/GalaxyPortal/GalaxyPortalScene';
 import { BirthdayScene } from '@/scenes/BirthdayScene/BirthdayScene';
 import { MemoryScene } from '@/scenes/MemoryScene/MemoryScene';
 import { GiftScene } from '@/scenes/GiftScene/GiftScene';
+import { BouquetScene } from '@/scenes/BouquetScene/BouquetScene';
 import { LetterScene } from '@/scenes/LetterScene/LetterScene';
 import { FinaleScene } from '@/scenes/FinaleScene/FinaleScene';
 
@@ -99,6 +100,19 @@ export default function App() {
               className="w-full min-h-screen pointer-events-none"
             >
               <GiftScene />
+            </motion.div>
+          )}
+
+          {currentScene === 'bouquet' && (
+            <motion.div
+              key="bouquet"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.5 }}
+              className="w-full min-h-screen pointer-events-none"
+            >
+              <BouquetScene />
             </motion.div>
           )}
 

@@ -58,6 +58,7 @@ export function GalaxyBackground() {
 
   const { camera } = useThree();
   const mouseTarget = useRef({ x: 0, y: 0 });
+  const prevSceneRef = useRef(currentScene);
 
   // Textures
   const starTexture = useMemo(() => createCircleTexture(), []);
@@ -159,6 +160,18 @@ export function GalaxyBackground() {
     // Mouse parallax tracking
     mouseTarget.current.x = THREE.MathUtils.lerp(mouseTarget.current.x, state.pointer.x * 1.2, 0.05);
     mouseTarget.current.y = THREE.MathUtils.lerp(mouseTarget.current.y, state.pointer.y * 0.8, 0.05);
+
+    // When entering the 360° interactive bouquet scene, position camera once then hand full control to OrbitControls
+    if (currentScene === 'bouquet') {
+      if (prevSceneRef.current !== 'bouquet') {
+        camera.position.set(0, 1.2, 10.2);
+        camera.lookAt(0, 0, 0);
+        prevSceneRef.current = 'bouquet';
+      }
+      return;
+    }
+
+    prevSceneRef.current = currentScene;
 
     // Dynamic camera adjustment based on scene
     let targetCameraZ = 16;

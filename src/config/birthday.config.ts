@@ -60,6 +60,16 @@ export const BirthdayConfigSchema = z.object({
     ps: z.string(),
   }),
 
+  bouquet: z.object({
+    badge: z.string(),
+    title: z.string(),
+    subtitle: z.string(),
+    bloomButtonText: z.string(),
+    foldBudButtonText: z.string(),
+    petalBurstButtonText: z.string(),
+    bloomMessage: z.string(),
+  }),
+
   letter: z.object({
     title: z.string(),
     subtitle: z.string(),
@@ -412,6 +422,16 @@ export const birthdayConfig: BirthdayConfig = {
       "Và vô vàn năng lượng tích cực, may mắn gửi thẳng tới quỹ đạo của chú!",
     ],
     ps: "*Lưu ý: Thẻ quà tặng có giá trị sử dụng vô thời hạn và không thể quy đổi ra tiền mặt nhưng có thể quy đổi ra niềm vui không giới hạn!",
+  },
+
+  bouquet: {
+    badge: "✦ BÓ HOA TINH TÚ 3D ✦",
+    title: "BÓ HOA TUỔI 20 RỰC RỠ",
+    subtitle: "Xoay 360° ngắm nhìn từng cánh hoa bung nở và những cánh hoa hồng bay lượn trong ngân hà dành tặng riêng cho chú!",
+    bloomButtonText: "Đánh Thức Hoa Nở Rực Rỡ",
+    foldBudButtonText: "Thu Về Nụ Hoa E Ấp",
+    petalBurstButtonText: "Tung Cánh Hoa Bay ✨",
+    bloomMessage: "Từng đóa hoa bung nở rực rỡ như chính tuổi 20 tươi đẹp, tràn đầy sức sống và ước mơ của chú!",
   },
 
   letter: {

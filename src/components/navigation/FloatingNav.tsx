@@ -6,6 +6,7 @@ import {
   Images, 
   Milestone, 
   Gift, 
+  Flower2,
   Mail, 
   Sparkles,
   ChevronLeft,
@@ -18,6 +19,7 @@ const iconMap: Record<string, React.ElementType> = {
   Images,
   Milestone,
   Gift,
+  Flower2,
   Mail,
   Sparkles,
 };

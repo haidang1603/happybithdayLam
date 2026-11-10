@@ -378,7 +378,7 @@ export function FriendshipPassCard({ onContinue }: FriendshipPassCardProps) {
           onClick={onContinue}
           className="w-full sm:flex-1 py-3.5 px-5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg glow-purple hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
-          <span>Mở thư chúc mừng</span>
+          <span>Đón nhận bó hoa 3D 🌸</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

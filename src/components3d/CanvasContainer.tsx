@@ -5,6 +5,7 @@ import { useExperienceStore } from '@/stores/useExperienceStore';
 import { GalaxyBackground } from './GalaxyBackground';
 import { BirthdayCake3D } from './BirthdayCake3D';
 import { GiftBox3D } from './GiftBox3D';
+import { FlowerBouquet3D } from './FlowerBouquet3D';
 import { Fireworks3D } from './Fireworks3D';
 import { WebGLFallback } from '@/components/effects/WebGLFallback';
 
@@ -37,19 +38,24 @@ export function CanvasContainer() {
           {/* Interactive 3D Secret Gift Box */}
           {currentScene === 'gift' && <GiftBox3D />}
 
+          {/* Interactive 3D Flower Bouquet */}
+          {currentScene === 'bouquet' && <FlowerBouquet3D />}
+
           {/* Dynamic 3D Fireworks Finale */}
           {currentScene === 'finale' && <Fireworks3D />}
 
-          {/* Controls for user interactive viewing */}
+          {/* Controls for user interactive viewing (360° free rotation in bouquet scene) */}
           <OrbitControls
-            enableZoom={false}
+            enableZoom={currentScene === 'bouquet'}
+            minDistance={5.5}
+            maxDistance={16.5}
             enablePan={false}
-            rotateSpeed={0.8}
+            rotateSpeed={0.9}
             enableDamping={true}
             dampingFactor={0.06}
-            maxPolarAngle={Math.PI / 1.7}
-            minPolarAngle={Math.PI / 2.5}
-            enabled={currentScene === 'cake' || currentScene === 'gift'}
+            maxPolarAngle={currentScene === 'bouquet' ? Math.PI - 0.2 : Math.PI / 1.7}
+            minPolarAngle={currentScene === 'bouquet' ? 0.2 : Math.PI / 2.5}
+            enabled={currentScene === 'cake' || currentScene === 'gift' || currentScene === 'bouquet'}
           />
         </Suspense>
       </Canvas>

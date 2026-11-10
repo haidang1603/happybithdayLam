@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type SceneId = 'portal' | 'cake' | 'memories' | 'gift' | 'letter' | 'finale';
+export type SceneId = 'portal' | 'cake' | 'memories' | 'gift' | 'bouquet' | 'letter' | 'finale';
 
 export interface SceneMeta {
   id: SceneId;
@@ -14,6 +14,7 @@ export const SCENE_ORDER: SceneMeta[] = [
   { id: 'cake', label: 'Bánh Sinh Nhật', shortTitle: 'Thổi Nến Ước Nguyện', iconName: 'Cake' },
   { id: 'memories', label: 'Album Kỷ Niệm', shortTitle: 'Khoảnh Khắc Đẹp', iconName: 'Images' },
   { id: 'gift', label: 'Hộp Quà Bí Mật', shortTitle: 'Quà Bất Ngờ', iconName: 'Gift' },
+  { id: 'bouquet', label: 'Bó Hoa 3D', shortTitle: 'Đóa Hoa Tuổi 20', iconName: 'Flower2' },
   { id: 'letter', label: 'Thư Chúc Mừng', shortTitle: 'Tâm Thư Chân Thành', iconName: 'Mail' },
   { id: 'finale', label: 'Pháo Hoa Rực Rỡ', shortTitle: 'Khép Lại Rạng Rỡ', iconName: 'Sparkles' },
 ];
@@ -23,6 +24,8 @@ interface ExperienceState {
   hasEntered: boolean;
   candleBlown: boolean;
   giftOpened: boolean;
+  bouquetBloomed: boolean;
+  petalBurstCount: number;
   letterRead: boolean;
   
   // Audio state
@@ -46,6 +49,8 @@ interface ExperienceState {
   enterPortal: () => void;
   setCandleBlown: (blown: boolean) => void;
   setGiftOpened: (opened: boolean) => void;
+  setBouquetBloomed: (bloomed: boolean) => void;
+  triggerPetalBurst: () => void;
   setLetterRead: (read: boolean) => void;
   toggleMusic: () => void;
   setMusicPlaying: (playing: boolean) => void;
@@ -64,6 +69,8 @@ export const useExperienceStore = create<ExperienceState>((set, get) => ({
   hasEntered: false,
   candleBlown: false,
   giftOpened: false,
+  bouquetBloomed: false,
+  petalBurstCount: 0,
   letterRead: false,
   
   musicPlaying: false,
@@ -98,6 +105,10 @@ export const useExperienceStore = create<ExperienceState>((set, get) => ({
   setCandleBlown: (blown) => set({ candleBlown: blown }),
   
   setGiftOpened: (opened) => set({ giftOpened: opened }),
+
+  setBouquetBloomed: (bloomed) => set({ bouquetBloomed: bloomed }),
+
+  triggerPetalBurst: () => set((state) => ({ petalBurstCount: state.petalBurstCount + 1 })),
   
   setLetterRead: (read) => set({ letterRead: read }),
   
@@ -124,6 +135,8 @@ export const useExperienceStore = create<ExperienceState>((set, get) => ({
     hasEntered: false,
     candleBlown: false,
     giftOpened: false,
+    bouquetBloomed: false,
+    petalBurstCount: 0,
     letterRead: false,
     activeMemoryId: null,
   }),

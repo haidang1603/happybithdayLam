@@ -70,16 +70,28 @@ describe('Experience Store State Transitions', () => {
     useExperienceStore.getState().nextScene(); // to 'gift'
     expect(useExperienceStore.getState().currentScene).toBe('gift');
 
+    useExperienceStore.getState().nextScene(); // to 'bouquet'
+    expect(useExperienceStore.getState().currentScene).toBe('bouquet');
+
+    useExperienceStore.getState().prevScene(); // back to 'gift'
+    expect(useExperienceStore.getState().currentScene).toBe('gift');
+
     useExperienceStore.getState().prevScene(); // back to 'memories'
     expect(useExperienceStore.getState().currentScene).toBe('memories');
   });
 
-  it('records interactions: candle blow, gift open, letter read', () => {
+  it('records interactions: candle blow, gift open, bouquet bloom, petal burst, letter read', () => {
     useExperienceStore.getState().setCandleBlown(true);
     expect(useExperienceStore.getState().candleBlown).toBe(true);
 
     useExperienceStore.getState().setGiftOpened(true);
     expect(useExperienceStore.getState().giftOpened).toBe(true);
+
+    useExperienceStore.getState().setBouquetBloomed(true);
+    expect(useExperienceStore.getState().bouquetBloomed).toBe(true);
+
+    useExperienceStore.getState().triggerPetalBurst();
+    expect(useExperienceStore.getState().petalBurstCount).toBe(1);
 
     useExperienceStore.getState().setLetterRead(true);
     expect(useExperienceStore.getState().letterRead).toBe(true);
