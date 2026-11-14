@@ -12,14 +12,6 @@ interface TravelRowProps {
   floatClass: string;
 }
 
-const VIBRANT_FRAMES = [
-  'bg-gradient-to-tr from-pink-300/75 via-amber-200/75 to-cyan-300/75 shadow-[0_0_16px_rgba(244,114,182,0.3),0_0_24px_rgba(103,232,249,0.18)] group-hover:shadow-[0_0_24px_rgba(244,114,182,0.55),0_0_34px_rgba(103,232,249,0.35)]',
-  'bg-gradient-to-tr from-fuchsia-300/75 via-purple-300/75 to-sky-300/75 shadow-[0_0_16px_rgba(232,121,249,0.3),0_0_24px_rgba(125,211,252,0.18)] group-hover:shadow-[0_0_24px_rgba(232,121,249,0.55),0_0_34px_rgba(125,211,252,0.35)]',
-  'bg-gradient-to-tr from-amber-200/75 via-rose-300/75 to-violet-300/75 shadow-[0_0_16px_rgba(251,113,133,0.3),0_0_24px_rgba(253,230,138,0.18)] group-hover:shadow-[0_0_24px_rgba(251,113,133,0.55),0_0_34px_rgba(253,230,138,0.35)]',
-  'bg-gradient-to-tr from-cyan-300/75 via-emerald-200/75 to-yellow-200/75 shadow-[0_0_16px_rgba(103,232,249,0.3),0_0_24px_rgba(167,243,208,0.18)] group-hover:shadow-[0_0_24px_rgba(103,232,249,0.55),0_0_34px_rgba(254,240,138,0.35)]',
-  'bg-gradient-to-tr from-rose-300/75 via-fuchsia-300/75 to-indigo-300/75 shadow-[0_0_16px_rgba(253,164,175,0.3),0_0_24px_rgba(165,180,252,0.18)] group-hover:shadow-[0_0_24px_rgba(253,164,175,0.55),0_0_34px_rgba(165,180,252,0.35)]',
-];
-
 function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps) {
   // Duplicate items to ensure seamless infinite looping
   const duplicatedItems = useMemo(() => [...items, ...items, ...items], [items]);
@@ -45,17 +37,15 @@ function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps
               animationDelay: `${(idx % 5) * 0.4}s`,
             }}
           >
-            {/* Zero-gravity Floating Frame: Vibrant multi-color cosmic gradient border */}
-            <div className={`relative rounded-2xl p-[3px] transition-all duration-300 ${VIBRANT_FRAMES[idx % VIBRANT_FRAMES.length]}`}>
-              <div className="rounded-[13px] overflow-hidden bg-slate-950/90">
-                <img
-                  src={item.image}
-                  alt="Kỷ niệm"
-                  className="h-32 sm:h-38 md:h-42 w-auto max-w-[260px] sm:max-w-[320px] rounded-[13px] object-contain block pointer-events-none transition-transform duration-300 group-hover:scale-[1.03]"
-                  loading="lazy"
-                  draggable={false}
-                />
-              </div>
+            {/* Zero-gravity Floating Frame: Slender crystal frame with delicate ambient glow */}
+            <div className="relative rounded-2xl p-1 bg-gradient-to-b from-white/35 via-purple-300/25 to-pink-300/30 shadow-[0_0_18px_rgba(216,180,254,0.32),0_4px_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_28px_rgba(232,121,249,0.7),0_6px_25px_rgba(0,0,0,0.7)] group-hover:from-pink-300/70 group-hover:to-purple-300/70 transition-all duration-300 backdrop-blur-md">
+              <img
+                src={item.image}
+                alt="Kỷ niệm"
+                className="h-32 sm:h-38 md:h-42 w-auto max-w-[260px] sm:max-w-[320px] rounded-[14px] object-contain block pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]"
+                loading="lazy"
+                draggable={false}
+              />
             </div>
           </div>
         ))}

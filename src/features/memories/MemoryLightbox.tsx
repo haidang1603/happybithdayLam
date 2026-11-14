@@ -86,27 +86,25 @@ export function MemoryLightbox() {
           <ChevronRight className="w-6 h-6" />
         </button>
 
-        {/* Content Polaroid Modal with vibrant rainbow frame */}
+        {/* Content Polaroid Modal */}
         <motion.div
           key={currentMemory.id}
           initial={{ opacity: 0, scale: 0.9, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 15 }}
           transition={{ duration: 0.3 }}
-          className="max-w-3xl w-full max-h-[90vh] rounded-3xl p-[2.5px] bg-gradient-to-tr from-pink-300/75 via-amber-200/75 to-cyan-300/75 shadow-[0_0_32px_rgba(244,114,182,0.3),0_0_45px_rgba(103,232,249,0.2),0_25px_60px_rgba(0,0,0,0.9)] flex flex-col"
+          className="max-w-3xl w-full max-h-[90vh] bg-slate-900/90 border border-purple-400/40 rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(192,132,252,0.35),0_25px_60px_rgba(0,0,0,0.9)] backdrop-blur-xl flex flex-col p-2.5 sm:p-3"
         >
-          <div className="w-full h-full bg-slate-950/95 rounded-[21px] overflow-hidden backdrop-blur-xl flex flex-col p-2 sm:p-2.5">
-            {/* Image Display - Natural Fit */}
-            <div className="relative w-full flex-1 min-h-0 bg-black/50 border border-white/10 rounded-2xl overflow-hidden flex items-center justify-center p-2 shadow-inner">
-              <img
-                src={currentMemory.image}
-                alt="Kỷ niệm"
-                className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl"
-              />
-              <span className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-mono glass-dock text-slate-300">
-                {currentIndex + 1} / {memories.length}
-              </span>
-            </div>
+          {/* Image Display - Natural Fit */}
+          <div className="relative w-full flex-1 min-h-0 bg-black/50 border border-white/10 rounded-2xl overflow-hidden flex items-center justify-center p-2 shadow-inner">
+            <img
+              src={currentMemory.image}
+              alt="Kỷ niệm"
+              className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl"
+            />
+            <span className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-mono glass-dock text-slate-300">
+              {currentIndex + 1} / {memories.length}
+            </span>
           </div>
         </motion.div>
       </div>
