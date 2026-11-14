@@ -62,7 +62,7 @@ export function GalaxyPortalScene() {
         {/* Recipient highlight tag */}
         <div className="pt-2">
           <span className="inline-block px-5 py-2 rounded-2xl glass-panel-glow text-yellow-300 font-semibold text-base sm:text-lg tracking-wider border-yellow-400/30 text-glow-gold">
-            ✦ Dành tặng: {birthdayConfig.recipientName} {birthdayConfig.recipientNickname ? `(${birthdayConfig.recipientNickname})` : ''} ✦
+            ✦ Dành tặng: {birthdayConfig.recipientName} ✦
           </span>
         </div>
 
