@@ -357,6 +357,38 @@ export const birthdayConfig: BirthdayConfig = {
       date: "02 Tháng 12, 2026",
       tag: "Best Memory ✨",
     },
+    {
+      id: "memory-031",
+      image: "/images/memories/IMG_20261114_155853.jpg",
+      title: "Khoảnh khắc mới tinh",
+      description: "Thêm một kỷ niệm đáng yêu vừa được ghi lại trước thềm sinh nhật tuổi 20 của Mỹ Lam.",
+      date: "14 Tháng 11, 2026",
+      tag: "Mới nhất",
+    },
+    {
+      id: "memory-032",
+      image: "/images/memories/IMG_20261114_155855.jpg",
+      title: "Nụ cười rạng ngời",
+      description: "Những bức ảnh đời thường luôn mang lại cảm giác gần gũi và ấm áp nhất.",
+      date: "14 Tháng 11, 2026",
+      tag: "Tươi tắn",
+    },
+    {
+      id: "memory-033",
+      image: "/images/memories/Picsart_26-11-14_22-44-44-901.png",
+      title: "Góc ảnh nghệ thuật",
+      description: "Một khung hình được chăm chút thật xinh xắn dành riêng cho cô bạn tuổi 20.",
+      date: "14 Tháng 11, 2026",
+      tag: "Xinh xắn",
+    },
+    {
+      id: "memory-034",
+      image: "/images/memories/Picsart_26-11-14_22-45-11-448.png",
+      title: "Lưu giữ thanh xuân",
+      description: "Thêm một mảnh ghép rực rỡ nữa vào bầu trời kỷ niệm của chúng mình.",
+      date: "14 Tháng 11, 2026",
+      tag: "Thanh xuân",
+    },
   ],
 
   timeline: [
