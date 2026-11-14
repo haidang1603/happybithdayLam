@@ -183,7 +183,7 @@ export function LetterScene() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between items-center px-3 pt-4 sm:pt-6 pb-6 z-10 select-none overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between items-center px-3 pt-14 sm:pt-8 pb-24 z-10 select-none overflow-hidden">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

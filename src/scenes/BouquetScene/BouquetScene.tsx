@@ -51,7 +51,7 @@ export function BouquetScene() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between items-center px-4 pt-8 sm:pt-10 pb-24 z-10 select-none pointer-events-none">
+    <div className="relative min-h-screen flex flex-col justify-between items-center px-4 pt-16 sm:pt-12 pb-22 sm:pb-24 z-10 select-none pointer-events-none">
       {/* Compact Top Header */}
       <AnimatePresence>
         {showControls && (

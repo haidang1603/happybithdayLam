@@ -56,13 +56,13 @@ export function FloatingNav() {
   };
 
   return (
-    <nav aria-label="Điều hướng các phân đoạn" className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-[95vw]">
-      <div className="glass-dock px-3 py-2 rounded-full flex items-center gap-1 sm:gap-2 shadow-2xl">
+    <nav aria-label="Điều hướng các phân đoạn" className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-[96vw]">
+      <div className="glass-dock px-1.5 sm:px-3 py-1.5 sm:py-2 rounded-full flex items-center gap-0.5 sm:gap-2 shadow-2xl">
         {/* Previous Button */}
         <button
           onClick={handlePrev}
           disabled={isFirst}
-          className={`p-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer ${
+          className={`p-1.5 sm:p-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0 ${
             isFirst ? 'opacity-30 cursor-not-allowed hover:bg-transparent' : ''
           }`}
           title="Phân đoạn trước"
@@ -72,7 +72,7 @@ export function FloatingNav() {
         </button>
 
         {/* Scene Icons */}
-        <div className="flex items-center gap-1 sm:gap-1.5 px-1">
+        <div className="flex items-center gap-0.5 sm:gap-1.5 px-0.5 sm:px-1 overflow-x-auto no-scrollbar">
           {SCENE_ORDER.map((item, idx) => {
             const Icon = iconMap[item.iconName] || Sparkles;
             const isActive = currentScene === item.id;
@@ -81,7 +81,7 @@ export function FloatingNav() {
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`relative px-2.5 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-medium transition-all duration-300 cursor-pointer ${
+                className={`relative px-1.5 sm:px-2.5 py-1.5 rounded-full flex items-center gap-1 sm:gap-1.5 text-xs font-medium transition-all duration-300 cursor-pointer shrink-0 ${
                   isActive
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md glow-purple scale-105'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -95,7 +95,7 @@ export function FloatingNav() {
 
                 {/* Active indicator dot on mobile */}
                 {isActive && (
-                  <span className="md:hidden w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" />
+                  <span className="md:hidden w-1 h-1 rounded-full bg-yellow-300 animate-pulse" />
                 )}
               </button>
             );
@@ -106,7 +106,7 @@ export function FloatingNav() {
         <button
           onClick={handleNext}
           disabled={isLast}
-          className={`p-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer ${
+          className={`p-1.5 sm:p-2 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0 ${
             isLast ? 'opacity-30 cursor-not-allowed hover:bg-transparent' : ''
           }`}
           title="Phân đoạn kế tiếp"
