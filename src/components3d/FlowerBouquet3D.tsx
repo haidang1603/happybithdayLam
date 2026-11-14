@@ -563,17 +563,17 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
   const petalGeo = useMemo(() => createRosePetalGeometry(), []);
   const leafGeo = useMemo(() => createLeafGeometry(), []);
 
-  // Multi-layered Korean Wrapping Paper Geometries
+  // Multi-layered Korean Wrapping Paper Geometries (cradling the floral dome without petal clipping)
   const outerWrapGeo = useMemo(
-    () => createPleatedPaperGeometry(2.45, 0.56, 2.65, 9, 0.14, Math.PI * 2, 0, 0.16),
+    () => createPleatedPaperGeometry(2.62, 0.56, 2.48, 9, 0.14, Math.PI * 2, 0, 0.16),
     []
   );
   const innerTissueGeo = useMemo(
-    () => createPleatedPaperGeometry(2.25, 0.52, 2.78, 12, 0.12, Math.PI * 2, 0.3, 0.22),
+    () => createPleatedPaperGeometry(2.44, 0.52, 2.58, 12, 0.12, Math.PI * 2, 0.3, 0.22),
     []
   );
   const backCrownSheetGeo = useMemo(
-    () => createPleatedPaperGeometry(2.85, 0.58, 3.35, 6, 0.18, Math.PI * 1.15, -Math.PI * 1.07, 0.28),
+    () => createPleatedPaperGeometry(2.96, 0.58, 3.25, 6, 0.18, Math.PI * 1.15, -Math.PI * 1.07, 0.28),
     []
   );
   const lowerSkirtOuterGeo = useMemo(
@@ -637,10 +637,10 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
       // 1. Center Crown Hero Rose
       {
         id: 'rose-center',
-        position: [0, 1.62, 0],
+        position: [0, 1.76, 0],
         azimuth: 0,
         tiltOut: 0,
-        scale: 1.04,
+        scale: 1.02,
         coreColor: '#E11D48',
         outerColor: '#FDA4AF',
         emissiveColor: '#FB7185',
@@ -659,17 +659,17 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
 
     for (let i = 0; i < 5; i++) {
       const angle = (i / 5) * Math.PI * 2;
-      const r = 0.96;
+      const r = 0.86;
       const x = Math.sin(angle) * r;
       const z = Math.cos(angle) * r;
       const pal = innerPalette[i % innerPalette.length];
 
       list.push({
         id: `rose-inner-${i}`,
-        position: [x, 1.38, z],
+        position: [x, 1.54, z],
         azimuth: angle,
-        tiltOut: 0.34,
-        scale: 0.90,
+        tiltOut: 0.28,
+        scale: 0.88,
         coreColor: pal.core,
         outerColor: pal.outer,
         emissiveColor: pal.emissive,
@@ -677,7 +677,7 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
       });
     }
 
-    // 3. Outer Ring: 7 Roses framing the dome cleanly without petal intersection
+    // 3. Outer Ring: 7 Roses framing the dome cleanly above the wrapping collar
     const outerPalette = [
       { core: '#F43F5E', outer: '#FFE4E6', emissive: '#FB7185' },
       { core: '#EC4899', outer: '#FBCFE8', emissive: '#F472B6' },
@@ -690,17 +690,17 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
 
     for (let i = 0; i < 7; i++) {
       const angle = (i / 7) * Math.PI * 2 + Math.PI / 7;
-      const r = 1.68;
+      const r = 1.46;
       const x = Math.sin(angle) * r;
       const z = Math.cos(angle) * r;
       const pal = outerPalette[i % outerPalette.length];
 
       list.push({
         id: `rose-outer-${i}`,
-        position: [x, 0.94, z],
+        position: [x, 1.24, z],
         azimuth: angle,
-        tiltOut: 0.64,
-        scale: 0.82,
+        tiltOut: 0.46,
+        scale: 0.80,
         coreColor: pal.core,
         outerColor: pal.outer,
         emissiveColor: pal.emissive,
@@ -716,8 +716,8 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
     const sprigs: { pos: [number, number, number]; scale: number }[] = [];
     for (let i = 0; i < 18; i++) {
       const angle = (i / 18) * Math.PI * 2 + (i % 2) * 0.25;
-      const radius = i % 3 === 0 ? 0.55 : i % 3 === 1 ? 1.25 : 1.88;
-      const height = i % 3 === 0 ? 1.52 : i % 3 === 1 ? 1.18 : 0.76;
+      const radius = i % 3 === 0 ? 0.50 : i % 3 === 1 ? 1.12 : 1.66;
+      const height = i % 3 === 0 ? 1.66 : i % 3 === 1 ? 1.38 : 1.08;
       sprigs.push({
         pos: [Math.sin(angle) * radius, height, Math.cos(angle) * radius],
         scale: 0.8 + (i % 3) * 0.2,
@@ -849,9 +849,9 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
           <group key={`foliage-${lIdx}`} rotation={[0, item.angle, 0]}>
             <mesh
               geometry={leafGeo}
-              position={[0, 0.55, 1.65]}
-              rotation={[1.08, 0, (lIdx % 2 === 0 ? 1 : -1) * 0.2]}
-              scale={[1.15, 1.15, 1.15]}
+              position={[0, 0.92, 1.58]}
+              rotation={[0.92, 0, (lIdx % 2 === 0 ? 1 : -1) * 0.2]}
+              scale={[1.05, 1.05, 1.05]}
             >
               <meshStandardMaterial
                 color={lIdx % 2 === 0 ? '#15803D' : '#166534'}
