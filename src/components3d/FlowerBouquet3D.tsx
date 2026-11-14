@@ -11,8 +11,8 @@ import { triggerGiftSparkles } from '@/components/effects/ConfettiBurst';
  * The petal extends upward along +Y and curves outward along +Z.
  */
 function createRosePetalGeometry(): THREE.BufferGeometry {
-  const widthSegments = 14;
-  const heightSegments = 18;
+  const widthSegments = 16;
+  const heightSegments = 20;
   const geometry = new THREE.BufferGeometry();
 
   const vertices: number[] = [];
@@ -22,26 +22,26 @@ function createRosePetalGeometry(): THREE.BufferGeometry {
   for (let iy = 0; iy <= heightSegments; iy++) {
     const v = iy / heightSegments; // 0 (base) -> 1 (tip)
 
-    // Heart-like / rounded rose petal width profile
-    const baseWidth = Math.sin(Math.pow(v, 0.65) * Math.PI);
-    const topWidening = 1 + 0.32 * Math.sin(v * Math.PI);
-    const halfWidth = 0.34 * baseWidth * topWidening;
+    // Broad, rounded fan-shaped rose petal profile (no sharp pointed tip)
+    const baseTaper = 0.16 + 0.84 * Math.sin(Math.min(1, v * 1.18) * (Math.PI / 2));
+    const topCap = v > 0.80 ? Math.sqrt(Math.max(0, 1 - Math.pow((v - 0.80) / 0.20, 2))) : 1;
+    const halfWidth = 0.44 * baseTaper * (0.34 + 0.66 * topCap);
 
     for (let ix = 0; ix <= widthSegments; ix++) {
       const u = (ix / widthSegments) * 2 - 1; // -1 (left) -> +1 (right)
 
       const x = u * halfWidth;
 
-      // Subtle notch/indent at the very top center of the rose petal
-      const heartNotch = v > 0.8 ? Math.exp(-u * u * 8) * (v - 0.8) * 0.14 : 0;
-      const y = v * 0.78 - heartNotch;
+      // Gentle rounded top curve (slight soft dimple, no sharp heart spike)
+      const topRound = v > 0.85 ? (1 - u * u) * (v - 0.85) * 0.06 : 0;
+      const y = v * 0.72 + topRound;
 
-      // Concave cupping across width (u) + S-curve recurve along height (v)
-      const cupDepth = (1 - u * u) * Math.sin(v * Math.PI) * 0.16;
-      const tipCurlOut = v > 0.65 ? -Math.pow((v - 0.65) / 0.35, 2) * 0.18 : 0;
-      const edgeRipple = Math.sin(u * Math.PI * 3) * 0.018 * v * v;
+      // Concave cup facing inward (-Z) so lateral edges wrap around the flower center,
+      // while the upper rim curls gracefully outward (+Z)
+      const cupDepth = (1 - u * u) * Math.sin(v * Math.PI * 0.9) * 0.14;
+      const tipCurlOut = v > 0.68 ? Math.pow((v - 0.68) / 0.32, 2) * 0.15 : 0;
 
-      const z = cupDepth + tipCurlOut + edgeRipple;
+      const z = cupDepth + tipCurlOut;
 
       vertices.push(x, y, z);
       uvs.push(ix / widthSegments, v);
@@ -190,17 +190,18 @@ interface PetalLayerSpec {
 }
 
 const ROSE_LAYERS: PetalLayerSpec[] = [
-  { count: 4, radius: 0.04, scale: [0.46, 0.52, 0.46], budTilt: 0.06, bloomTilt: 0.34, yOffset: 0.06 },
-  { count: 5, radius: 0.08, scale: [0.62, 0.66, 0.62], budTilt: 0.12, bloomTilt: 0.58, yOffset: 0.04 },
-  { count: 6, radius: 0.13, scale: [0.78, 0.80, 0.78], budTilt: 0.18, bloomTilt: 0.84, yOffset: 0.02 },
-  { count: 6, radius: 0.18, scale: [0.94, 0.94, 0.94], budTilt: 0.25, bloomTilt: 1.08, yOffset: 0.0 },
-  { count: 7, radius: 0.23, scale: [1.10, 1.05, 1.10], budTilt: 0.34, bloomTilt: 1.32, yOffset: -0.02 },
+  { count: 4, radius: 0.04, scale: [0.52, 0.56, 0.52], budTilt: 0.04, bloomTilt: 0.24, yOffset: 0.05 },
+  { count: 5, radius: 0.08, scale: [0.66, 0.68, 0.66], budTilt: 0.10, bloomTilt: 0.44, yOffset: 0.035 },
+  { count: 6, radius: 0.125, scale: [0.80, 0.80, 0.80], budTilt: 0.16, bloomTilt: 0.66, yOffset: 0.02 },
+  { count: 7, radius: 0.17, scale: [0.92, 0.90, 0.92], budTilt: 0.22, bloomTilt: 0.86, yOffset: 0.0 },
+  { count: 8, radius: 0.215, scale: [1.04, 0.98, 1.04], budTilt: 0.28, bloomTilt: 1.04, yOffset: -0.015 },
 ];
 
 interface RoseSpec {
   id: string;
   position: [number, number, number];
-  rotation: [number, number, number];
+  azimuth: number;
+  tiltOut: number;
   scale: number;
   coreColor: string;
   outerColor: string;
@@ -242,15 +243,15 @@ function RoseFlower({ spec, petalGeo, leafGeo, bouquetBloomed }: RoseFlowerProps
       const petalColor = innerCol.clone().lerp(outerCol, layerRatio);
 
       for (let i = 0; i < layer.count; i++) {
-        // Golden angle spiral offset between layers for natural rose phyllotaxis
-        const angle = (i / layer.count) * Math.PI * 2 + lIdx * 1.15;
+        // Neat alternating spiral stagger so each layer sits cleanly between the gaps of the inner layer
+        const angle = (i / layer.count) * Math.PI * 2 + lIdx * (Math.PI / layer.count);
         list.push({
           layerIdx: lIdx,
           angle,
           radius: layer.radius,
           scale: layer.scale,
           budTilt: layer.budTilt,
-          bloomTilt: layer.bloomTilt + (i % 2 === 0 ? 0.04 : -0.04),
+          bloomTilt: layer.bloomTilt,
           yOffset: layer.yOffset,
           color: petalColor,
         });
@@ -304,23 +305,20 @@ function RoseFlower({ spec, petalGeo, leafGeo, bouquetBloomed }: RoseFlowerProps
       stamenGroupRef.current.scale.setScalar(Math.max(0.01, stamenScale));
     }
 
-    // Animate each individual petal's unfurling tilt angle
+    // Animate each individual petal's unfurling tilt angle uniformly along its radial axis
     petalsMeta.forEach((meta, idx) => {
       const mesh = petalRefs.current[idx];
       if (!mesh) return;
 
-      // Outer layers unfurl slightly earlier than the tight inner core
-      const layerOrder = (ROSE_LAYERS.length - 1 - meta.layerIdx) * 0.12;
-      const localP = THREE.MathUtils.clamp((p - layerOrder * 0.35) / (1 - layerOrder * 0.2), 0, 1);
-      // Smooth cubic easing
-      const eased = 1 - Math.pow(1 - localP, 3);
+      // Smooth outer-to-inner unfurl without jarring gaps
+      const layerDelay = (ROSE_LAYERS.length - 1 - meta.layerIdx) * 0.06;
+      const localP = THREE.MathUtils.clamp((p - layerDelay) / (1 - layerDelay), 0, 1);
+      const eased = localP * localP * (3 - 2 * localP); // smoothstep
 
-      const flutter = Math.sin(time * 2.5 + idx * 0.7) * 0.025 * eased;
-      const currentTilt = THREE.MathUtils.lerp(meta.budTilt, meta.bloomTilt, eased) + flutter;
+      const gentleBreath = Math.sin(time * 1.8 + meta.layerIdx * 0.5) * 0.012 * eased;
+      const currentTilt = THREE.MathUtils.lerp(meta.budTilt, meta.bloomTilt, eased) + gentleBreath;
 
-      // Orient petal around flower center and tilt outward by currentTilt
-      mesh.rotation.set(0, meta.angle, 0, 'YXZ');
-      mesh.rotateX(currentTilt);
+      mesh.rotation.x = currentTilt;
     });
   });
 
@@ -331,13 +329,13 @@ function RoseFlower({ spec, petalGeo, leafGeo, bouquetBloomed }: RoseFlowerProps
         <meshStandardMaterial color="#15803D" roughness={0.55} metalness={0.05} />
       </mesh>
 
-      {/* Flower Head */}
-      <group
-        ref={flowerHeadRef}
-        position={spec.position}
-        rotation={spec.rotation}
-        scale={spec.scale}
-      >
+      {/* Flower Head oriented cleanly outward along azimuth + tiltOut */}
+      <group position={spec.position} rotation={[0, spec.azimuth, 0]}>
+        <group
+          ref={flowerHeadRef}
+          rotation={[spec.tiltOut, 0, 0]}
+          scale={spec.scale}
+        >
         {/* Receptacle Base & 5 Green Calyx Sepals */}
         <mesh position={[0, -0.05, 0]}>
           <sphereGeometry args={[0.14, 12, 12]} />
@@ -402,35 +400,33 @@ function RoseFlower({ spec, petalGeo, leafGeo, bouquetBloomed }: RoseFlowerProps
 
         {/* Concentric 3D Curved Petals */}
         {petalsMeta.map((meta, pIdx) => (
-          <mesh
-            key={`petal-${pIdx}`}
-            ref={(el) => {
-              petalRefs.current[pIdx] = el;
-            }}
-            geometry={petalGeo}
-            position={[
-              Math.sin(meta.angle) * meta.radius,
-              meta.yOffset,
-              Math.cos(meta.angle) * meta.radius,
-            ]}
-            scale={meta.scale}
-            castShadow
-            receiveShadow
-          >
-            <meshPhysicalMaterial
-              color={meta.color}
-              emissive={spec.emissiveColor}
-              emissiveIntensity={0.18}
-              roughness={0.36}
-              metalness={0.04}
-              clearcoat={0.22}
-              clearcoatRoughness={0.35}
-              sheen={0.7}
-              sheenColor="#FFE4E6"
-              side={THREE.DoubleSide}
-            />
-          </mesh>
+          <group key={`petal-${pIdx}`} rotation={[0, meta.angle, 0]}>
+            <mesh
+              ref={(el) => {
+                petalRefs.current[pIdx] = el;
+              }}
+              geometry={petalGeo}
+              position={[0, meta.yOffset, meta.radius]}
+              scale={meta.scale}
+              castShadow
+              receiveShadow
+            >
+              <meshPhysicalMaterial
+                color={meta.color}
+                emissive={spec.emissiveColor}
+                emissiveIntensity={0.18}
+                roughness={0.36}
+                metalness={0.04}
+                clearcoat={0.22}
+                clearcoatRoughness={0.35}
+                sheen={0.7}
+                sheenColor="#FFE4E6"
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          </group>
         ))}
+        </group>
       </group>
     </group>
   );
@@ -635,15 +631,16 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
     };
   }, []);
 
-  // 13 Multi-Layered Roses arranged in a lush dome bouquet
+  // 13 Multi-Layered Roses arranged in a symmetrical, non-overlapping dome bouquet
   const roses: RoseSpec[] = useMemo(() => {
     const list: RoseSpec[] = [
       // 1. Center Crown Hero Rose
       {
         id: 'rose-center',
-        position: [0, 1.55, 0],
-        rotation: [0.05, 0, 0],
-        scale: 1.25,
+        position: [0, 1.62, 0],
+        azimuth: 0,
+        tiltOut: 0,
+        scale: 1.04,
         coreColor: '#E11D48',
         outerColor: '#FDA4AF',
         emissiveColor: '#FB7185',
@@ -651,7 +648,7 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
       },
     ];
 
-    // 2. Inner Ring: 5 Roses around the crown
+    // 2. Inner Ring: 5 Roses evenly spaced around the crown
     const innerPalette = [
       { core: '#DB2777', outer: '#F9A8D4', emissive: '#F472B6' },
       { core: '#D97706', outer: '#FEF08A', emissive: '#FBBF24' }, // Champagne Gold Rose
@@ -661,26 +658,26 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
     ];
 
     for (let i = 0; i < 5; i++) {
-      const angle = (i / 5) * Math.PI * 2 + 0.2;
-      const r = 0.86;
+      const angle = (i / 5) * Math.PI * 2;
+      const r = 0.96;
       const x = Math.sin(angle) * r;
       const z = Math.cos(angle) * r;
-      const tilt = 0.36;
       const pal = innerPalette[i % innerPalette.length];
 
       list.push({
         id: `rose-inner-${i}`,
-        position: [x, 1.28, z],
-        rotation: [Math.cos(angle) * tilt, 0, -Math.sin(angle) * tilt],
-        scale: 1.05,
+        position: [x, 1.38, z],
+        azimuth: angle,
+        tiltOut: 0.34,
+        scale: 0.90,
         coreColor: pal.core,
         outerColor: pal.outer,
         emissiveColor: pal.emissive,
-        bloomDelay: 0.3 + i * 0.12,
+        bloomDelay: 0.18,
       });
     }
 
-    // 3. Outer Ring: 7 Roses framing the dome
+    // 3. Outer Ring: 7 Roses framing the dome cleanly without petal intersection
     const outerPalette = [
       { core: '#F43F5E', outer: '#FFE4E6', emissive: '#FB7185' },
       { core: '#EC4899', outer: '#FBCFE8', emissive: '#F472B6' },
@@ -692,22 +689,22 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
     ];
 
     for (let i = 0; i < 7; i++) {
-      const angle = (i / 7) * Math.PI * 2 + 0.55;
-      const r = 1.56;
+      const angle = (i / 7) * Math.PI * 2 + Math.PI / 7;
+      const r = 1.68;
       const x = Math.sin(angle) * r;
       const z = Math.cos(angle) * r;
-      const tilt = 0.66;
       const pal = outerPalette[i % outerPalette.length];
 
       list.push({
         id: `rose-outer-${i}`,
-        position: [x, 0.86, z],
-        rotation: [Math.cos(angle) * tilt, 0, -Math.sin(angle) * tilt],
-        scale: 0.94,
+        position: [x, 0.94, z],
+        azimuth: angle,
+        tiltOut: 0.64,
+        scale: 0.82,
         coreColor: pal.core,
         outerColor: pal.outer,
         emissiveColor: pal.emissive,
-        bloomDelay: 0.75 + i * 0.1,
+        bloomDelay: 0.36,
       });
     }
 
@@ -1037,3 +1034,4 @@ export function FlowerBouquet3D({ autoRotate = true }: { autoRotate?: boolean })
     </group>
   );
 }
+
