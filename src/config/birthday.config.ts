@@ -484,7 +484,7 @@ export const birthdayConfig: BirthdayConfig = {
 
   finale: {
     quote: "“Vũ trụ rộng lớn vô tận với hàng tỷ vì sao, nhưng tìm được một người bạn tâm đầu ý hợp là điều kỳ diệu nhất.”",
-    heading: "CHÚC MỪNG SINH NHẬT CHÚ!",
+    heading: "CHÚC MỪNG SINH NHẬT LAM!",
     subheading: "Chúc cho mọi ước mơ của chú sẽ cất cánh và tỏa sáng rực rỡ như những chòm sao!",
     replayButtonText: "✦ Trải Nghiệm Lại Từ Đầu ✦",
   },
