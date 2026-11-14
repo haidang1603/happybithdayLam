@@ -22,19 +22,19 @@ function createRosePetalGeometry(): THREE.BufferGeometry {
   for (let iy = 0; iy <= heightSegments; iy++) {
     const v = iy / heightSegments; // 0 (base) -> 1 (tip)
 
-    // Broad, rounded fan-shaped rose petal profile (no sharp pointed tip)
-    const baseTaper = 0.16 + 0.84 * Math.sin(Math.min(1, v * 1.18) * (Math.PI / 2));
-    const topCap = v > 0.80 ? Math.sqrt(Math.max(0, 1 - Math.pow((v - 0.80) / 0.20, 2))) : 1;
-    const halfWidth = 0.44 * baseTaper * (0.34 + 0.66 * topCap);
+    // Full rounded belly tapering smoothly to a softly pointed apex (balanced: not blunt, not needle-sharp)
+    const baseTaper = 0.16 + 0.84 * Math.sin(Math.min(1, v * 1.22) * (Math.PI / 2));
+    const topCap = v > 0.62 ? Math.sqrt(Math.max(0, 1 - Math.pow((v - 0.62) / 0.38, 1.85))) : 1;
+    const halfWidth = 0.42 * baseTaper * (0.14 + 0.86 * topCap);
 
     for (let ix = 0; ix <= widthSegments; ix++) {
       const u = (ix / widthSegments) * 2 - 1; // -1 (left) -> +1 (right)
 
       const x = u * halfWidth;
 
-      // Gentle rounded top curve (slight soft dimple, no sharp heart spike)
-      const topRound = v > 0.85 ? (1 - u * u) * (v - 0.85) * 0.06 : 0;
-      const y = v * 0.72 + topRound;
+      // Softly arched center tip so the apex feels gently pointed yet rounded
+      const topRound = v > 0.64 ? Math.pow(1 - u * u, 0.85) * ((v - 0.64) / 0.36) * 0.065 : 0;
+      const y = v * 0.76 + topRound;
 
       // Concave cup facing inward (-Z) so lateral edges wrap around the flower center,
       // while the upper rim curls gracefully outward (+Z)
