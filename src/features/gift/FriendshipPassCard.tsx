@@ -349,37 +349,37 @@ export function FriendshipPassCard({ onContinue }: FriendshipPassCardProps) {
       </div>
 
       {/* ACTION BUTTONS */}
-      <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+      <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
         <button
           onClick={handleDownloadImage}
           disabled={isExporting}
-          className="w-full sm:flex-1 py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-slate-950 font-extrabold text-xs sm:text-sm tracking-wide shadow-xl glow-gold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          className="py-2 px-4 rounded-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-slate-950 font-extrabold text-xs tracking-wide shadow-lg glow-gold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer disabled:opacity-50"
           title="Lưu thẻ VIP dạng ảnh PNG chất lượng cao vào máy"
         >
           {isExporting ? (
             <>
-              <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-              <span>Đang xuất ảnh thẻ chất lượng cao...</span>
+              <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+              <span>Đang lưu...</span>
             </>
           ) : downloadSuccess ? (
             <>
-              <Check className="w-4 h-4 text-emerald-950 font-bold" />
-              <span>Đã lưu ảnh thẻ VIP thành công!</span>
+              <Check className="w-3.5 h-3.5 text-emerald-950 font-bold" />
+              <span>Đã lưu thẻ!</span>
             </>
           ) : (
             <>
-              <Download className="w-4 h-4" />
-              <span>Lưu thẻ quà tặng dạng ảnh</span>
+              <Download className="w-3.5 h-3.5" />
+              <span>Lưu thẻ VIP</span>
             </>
           )}
         </button>
 
         <button
           onClick={onContinue}
-          className="w-full sm:flex-1 py-3.5 px-5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg glow-purple hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="py-2 px-4 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs tracking-wide shadow-lg glow-purple hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer"
         >
-          <span>Đón nhận bó hoa 3D 🌸</span>
-          <ArrowRight className="w-4 h-4" />
+          <span>Nhận bó hoa 3D 🌸</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
     </div>
