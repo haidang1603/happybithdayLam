@@ -93,7 +93,7 @@ export function MemoryLightbox() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 15 }}
           transition={{ duration: 0.3 }}
-          className="max-w-3xl w-full max-h-[90vh] rounded-3xl p-[3px] bg-gradient-to-tr from-pink-500 via-amber-400 to-cyan-400 shadow-[0_0_45px_rgba(236,72,153,0.45),0_0_60px_rgba(34,211,238,0.28),0_25px_60px_rgba(0,0,0,0.9)] flex flex-col"
+          className="max-w-3xl w-full max-h-[90vh] rounded-3xl p-[2.5px] bg-gradient-to-tr from-pink-300/75 via-amber-200/75 to-cyan-300/75 shadow-[0_0_32px_rgba(244,114,182,0.3),0_0_45px_rgba(103,232,249,0.2),0_25px_60px_rgba(0,0,0,0.9)] flex flex-col"
         >
           <div className="w-full h-full bg-slate-950/95 rounded-[21px] overflow-hidden backdrop-blur-xl flex flex-col p-2 sm:p-2.5">
             {/* Image Display - Natural Fit */}

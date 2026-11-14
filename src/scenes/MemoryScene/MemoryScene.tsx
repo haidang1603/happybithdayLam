@@ -13,11 +13,11 @@ interface TravelRowProps {
 }
 
 const VIBRANT_FRAMES = [
-  'bg-gradient-to-tr from-pink-500 via-amber-400 to-cyan-400 shadow-[0_0_20px_rgba(236,72,153,0.5),0_0_32px_rgba(34,211,238,0.28)] group-hover:shadow-[0_0_30px_rgba(236,72,153,0.85),0_0_45px_rgba(34,211,238,0.5)]',
-  'bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-sky-400 shadow-[0_0_20px_rgba(217,70,239,0.5),0_0_32px_rgba(56,189,248,0.28)] group-hover:shadow-[0_0_30px_rgba(217,70,239,0.85),0_0_45px_rgba(56,189,248,0.5)]',
-  'bg-gradient-to-tr from-amber-400 via-rose-500 to-violet-500 shadow-[0_0_20px_rgba(244,63,94,0.5),0_0_32px_rgba(251,191,36,0.28)] group-hover:shadow-[0_0_30px_rgba(244,63,94,0.85),0_0_45px_rgba(251,191,36,0.5)]',
-  'bg-gradient-to-tr from-cyan-400 via-emerald-400 to-yellow-300 shadow-[0_0_20px_rgba(34,211,238,0.5),0_0_32px_rgba(52,211,153,0.28)] group-hover:shadow-[0_0_30px_rgba(34,211,238,0.85),0_0_45px_rgba(253,224,71,0.5)]',
-  'bg-gradient-to-tr from-rose-400 via-fuchsia-500 to-indigo-400 shadow-[0_0_20px_rgba(244,114,182,0.5),0_0_32px_rgba(129,140,248,0.28)] group-hover:shadow-[0_0_30px_rgba(244,114,182,0.85),0_0_45px_rgba(129,140,248,0.5)]',
+  'bg-gradient-to-tr from-pink-300/75 via-amber-200/75 to-cyan-300/75 shadow-[0_0_16px_rgba(244,114,182,0.3),0_0_24px_rgba(103,232,249,0.18)] group-hover:shadow-[0_0_24px_rgba(244,114,182,0.55),0_0_34px_rgba(103,232,249,0.35)]',
+  'bg-gradient-to-tr from-fuchsia-300/75 via-purple-300/75 to-sky-300/75 shadow-[0_0_16px_rgba(232,121,249,0.3),0_0_24px_rgba(125,211,252,0.18)] group-hover:shadow-[0_0_24px_rgba(232,121,249,0.55),0_0_34px_rgba(125,211,252,0.35)]',
+  'bg-gradient-to-tr from-amber-200/75 via-rose-300/75 to-violet-300/75 shadow-[0_0_16px_rgba(251,113,133,0.3),0_0_24px_rgba(253,230,138,0.18)] group-hover:shadow-[0_0_24px_rgba(251,113,133,0.55),0_0_34px_rgba(253,230,138,0.35)]',
+  'bg-gradient-to-tr from-cyan-300/75 via-emerald-200/75 to-yellow-200/75 shadow-[0_0_16px_rgba(103,232,249,0.3),0_0_24px_rgba(167,243,208,0.18)] group-hover:shadow-[0_0_24px_rgba(103,232,249,0.55),0_0_34px_rgba(254,240,138,0.35)]',
+  'bg-gradient-to-tr from-rose-300/75 via-fuchsia-300/75 to-indigo-300/75 shadow-[0_0_16px_rgba(253,164,175,0.3),0_0_24px_rgba(165,180,252,0.18)] group-hover:shadow-[0_0_24px_rgba(253,164,175,0.55),0_0_34px_rgba(165,180,252,0.35)]',
 ];
 
 function TravelRow({ items, direction, onCardClick, floatClass }: TravelRowProps) {
