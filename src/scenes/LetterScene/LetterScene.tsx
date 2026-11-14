@@ -500,13 +500,13 @@ export function LetterScene() {
       </div>
 
       {/* Bottom Action: Proceed to Grand Finale */}
-      <div className="pt-2 z-20 shrink-0">
+      <div className="pt-1.5 z-20 shrink-0">
         <button
           onClick={handleNext}
-          className="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-semibold text-xs sm:text-sm tracking-wider uppercase shadow-xl glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+          className="px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-semibold text-xs tracking-wide uppercase shadow-lg glow-purple hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
         >
-          <span>Màn pháo hoa chúc mừng đặc biệt</span>
-          <ArrowRight className="w-4 h-4" />
+          <span>Màn pháo hoa chúc mừng</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
     </div>

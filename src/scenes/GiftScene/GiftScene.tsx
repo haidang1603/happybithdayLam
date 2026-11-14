@@ -51,25 +51,25 @@ export function GiftScene() {
       </div>
 
       {/* Bottom Interactive Content */}
-      <div className="w-full max-w-xl mx-auto pointer-events-auto">
+      <div className="w-full max-w-md mx-auto pointer-events-auto">
         <AnimatePresence mode="wait">
           {!giftOpened ? (
             <motion.div
               key="closed"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="glass-panel-glow rounded-3xl p-5 text-center space-y-3"
+              exit={{ opacity: 0, y: -16 }}
+              className="glass-panel-glow rounded-2xl px-4 py-3 text-center space-y-2.5"
             >
-              <p className="text-xs sm:text-sm text-yellow-200 font-medium">
+              <p className="text-[11px] sm:text-xs text-yellow-200 font-medium">
                 {birthdayConfig.gift.closedHint}
               </p>
 
               <button
                 onClick={handleOpenGift}
-                className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-sm tracking-wider uppercase shadow-xl glow-gold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="mx-auto py-2 px-5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-xs tracking-wider uppercase shadow-xl glow-gold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-yellow-200 animate-spin" style={{ animationDuration: '4s' }} />
+                <Sparkles className="w-3.5 h-3.5 text-yellow-200 animate-spin" style={{ animationDuration: '4s' }} />
                 <span>Mở Nắp Hộp Quà Bí Mật</span>
               </button>
             </motion.div>

@@ -106,20 +106,20 @@ export function FinaleScene() {
       </motion.div>
 
       {/* Bottom Actions */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+      <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4">
         <button
           onClick={handleRestart}
-          className="px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-xs sm:text-sm tracking-widest uppercase shadow-xl glow-gold hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer"
+          className="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-xs tracking-wider uppercase shadow-xl glow-gold hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-3.5 h-3.5" />
           <span>{birthdayConfig.finale.replayButtonText}</span>
         </button>
 
         <button
           onClick={handleCopyLink}
-          className="px-6 py-3.5 rounded-full glass-panel text-slate-300 hover:text-white font-medium text-xs tracking-wider uppercase transition-colors flex items-center gap-2 cursor-pointer"
+          className="px-4 py-2 rounded-full glass-panel text-slate-300 hover:text-white font-medium text-xs tracking-wider uppercase transition-colors flex items-center gap-1.5 cursor-pointer"
         >
-          <Share2 className="w-4 h-4 text-cyan-400" />
+          <Share2 className="w-3.5 h-3.5 text-cyan-400" />
           <span>Chia sẻ món quà</span>
         </button>
       </div>

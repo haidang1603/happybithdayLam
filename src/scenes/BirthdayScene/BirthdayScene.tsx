@@ -54,50 +54,50 @@ export function BirthdayScene() {
       </div>
 
       {/* Bottom Interactive Control Panel */}
-      <div className="w-full max-w-lg mx-auto pointer-events-auto space-y-4">
+      <div className="w-full max-w-md mx-auto pointer-events-auto">
         <AnimatePresence mode="wait">
           {!candleBlown ? (
             <motion.div
               key="unblown"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="glass-panel-glow rounded-3xl p-5 text-center space-y-3"
+              exit={{ opacity: 0, y: -16 }}
+              className="glass-panel-glow rounded-2xl px-4 py-3 text-center space-y-2.5"
             >
-              <p className="text-xs sm:text-sm text-yellow-200 font-medium italic">
+              <p className="text-[11px] sm:text-xs text-yellow-200 font-medium italic">
                 {birthdayConfig.cake.candleWish}
               </p>
 
               <button
                 onClick={handleBlowCandle}
-                className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-600 to-purple-600 text-white font-bold text-sm tracking-wider uppercase shadow-xl glow-gold hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                className="mx-auto py-2 px-5 rounded-full bg-gradient-to-r from-amber-500 via-pink-600 to-purple-600 text-white font-bold text-xs tracking-wider uppercase shadow-xl glow-gold hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Wind className="w-5 h-5 text-yellow-300 animate-pulse" />
+                <Wind className="w-4 h-4 text-yellow-300 animate-pulse" />
                 <span>{birthdayConfig.cake.blowButtonText}</span>
               </button>
             </motion.div>
           ) : (
             <motion.div
               key="blown"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="glass-panel-glow rounded-3xl p-5 text-center space-y-4 border-yellow-400/40"
+              exit={{ opacity: 0, scale: 0.92 }}
+              className="glass-panel-glow rounded-2xl px-4 py-3 text-center space-y-2.5 border-yellow-400/40"
             >
-              <div className="flex items-center justify-center gap-2 text-yellow-400 font-bold text-base font-heading">
-                <Sparkles className="w-5 h-5" />
+              <div className="flex items-center justify-center gap-1.5 text-yellow-400 font-bold text-xs sm:text-sm font-heading">
+                <Sparkles className="w-4 h-4" />
                 <span>ĐIỀU ƯỚC ĐÃ ĐƯỢC GỬI ĐI!</span>
-                <Sparkles className="w-5 h-5" />
+                <Sparkles className="w-4 h-4" />
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-slate-200 leading-relaxed">
                 {birthdayConfig.cake.afterBlowMessage}
               </p>
 
-              <div className="flex items-center gap-3 pt-1">
+              <div className="flex items-center justify-center gap-2 pt-0.5">
                 <button
                   onClick={handleRelight}
-                  className="flex-1 py-2.5 px-4 rounded-xl glass-panel text-slate-300 hover:text-white text-xs font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="py-1.5 px-3.5 rounded-full glass-panel text-slate-300 hover:text-white text-xs font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>{birthdayConfig.cake.relightButtonText}</span>
@@ -105,10 +105,10 @@ export function BirthdayScene() {
 
                 <button
                   onClick={handleContinue}
-                  className="flex-[2] py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs tracking-wider uppercase shadow-lg glow-blue hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="py-1.5 px-4 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs tracking-wide uppercase shadow-lg glow-blue hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span>Khám phá album ảnh</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </motion.div>
